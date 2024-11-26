@@ -14,12 +14,7 @@ Body {
   box-sizing: inherit;
 
 }
-center h1{
-  /* border: 2px solid; */
-  padding: 0;
-  margin: 0;
-  padding: 1%;
-}
+
 
 .signup--welcome--mobile {
   display: none;

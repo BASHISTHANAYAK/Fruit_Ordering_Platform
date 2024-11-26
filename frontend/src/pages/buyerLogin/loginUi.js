@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { enterDetails, submitForm } from "./loginFunction";
-import MusicLogo from "../../assets/images/musicCartLogo.png";
-import footerWEB from "../../assets/images/footerWEB.png";
-import mobilenav from "../../assets/images/mobileLoginNav.png";
-import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
+// import MusicLogo from "../../assets/images/musicCartLogo.png";
+// import footerWEB from "../../assets/images/footerWEB.png";
+// import mobilenav from "../../assets/images/mobileLoginNav.png";
+// import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
 
-const AdminLogin = () => {
+const BuyerLogin = () => {
   // clearing session storage
   sessionStorage.removeItem("jwttoken");
   sessionStorage.removeItem("directBuy");
@@ -85,7 +85,7 @@ const AdminLogin = () => {
         <VegefoodsLogo />
       </center>
       <center>
-        <h3>ADMIN</h3>
+        <h3>USER</h3>
       </center>
 
       <h2 className="login--welcome--mobile">welcome</h2>
@@ -114,7 +114,7 @@ const AdminLogin = () => {
             Continue
           </button>
           <p className="login--privacy--notice">
-            By continuing, you agree to Musicart privacy notice and conditions
+            By continuing, you agree to Vegefoods privacy notice and conditions
             of use.
           </p>
         </div>
@@ -122,11 +122,11 @@ const AdminLogin = () => {
 
       <div className="login--new--to--cart">
         <p className="line1"></p>
-        <p>New to Vegefoods?</p>
+        <p>New to Musiccart?</p>
         <p className="line2"></p>
       </div>
       <div className="login--create--your--account--button">
-        <Link to="/adminSignup" id="LinkTag">
+        <Link to="/buyerSignup" id="LinkTag">
           Create your account
         </Link>
       </div>
@@ -137,4 +137,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default BuyerLogin;

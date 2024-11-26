@@ -19,7 +19,7 @@ const NavWithoutLogin = (props) => {
         <div>
           <span>
             {props.Login && (
-              <Link className="login--SignButton" to="/login">
+              <Link className="login--SignButton" to="/selectAccountType">
                 Login
               </Link>
             )}
@@ -28,7 +28,7 @@ const NavWithoutLogin = (props) => {
             {props.Signup && (
               <>
                 <span> | </span>
-                <Link className="login--SignButton" to="/signup">
+                <Link className="login--SignButton" to="/selectAccountType">
                   Signup
                 </Link>
               </>

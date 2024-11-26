@@ -12,7 +12,14 @@ import express from "express";
 // import { filterProduct, productById } from "../controllers/allProducts.js";
 
 // ---------------------
-import { adminLoginRoute, AdminSignupRoute } from "../controllers/AdminController.js";
+import {
+  adminLoginRoute,
+  AdminSignupRoute,
+} from "../controllers/AdminController.js";
+import {
+  buyerLoginRoute,
+  buyerSignupRoute,
+} from "../controllers/BuyerController.js";
 
 const router = express.Router();
 
@@ -42,11 +49,16 @@ const router = express.Router();
 // // removing all items in user cart
 // router.patch("/emptyCart/:_id", emptyCart);
 
-
 // --------------------------------------
-// Admin SignUP 
+// Admin SignUP
 router.post("/adminSignup", AdminSignupRoute);
 //adminLoginRoute
- router.post("/adminLogin", adminLoginRoute);
+router.post("/adminLogin", adminLoginRoute);
+
+// --------------------------------------
+//Buyer routes
+router.post("/buyerSignup", buyerSignupRoute);
+//adminLoginRoute
+router.post("/buyerLogin", buyerLoginRoute);
 
 export default router;

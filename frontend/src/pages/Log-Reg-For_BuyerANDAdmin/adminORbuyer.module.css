@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgb(147, 221, 221);
+  display: grid;
+  place-items: center;
+}
+.container > div {
+  /* border: 2px solid; */
+  display: grid;
+  place-items: center;
+  gap: 10px;
+}
+.container > div > button {
+  padding: 15px 40px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+  background-color: white;
+}
+.container > div > button:hover {
+  transform: scale(0.9);
+  background-color: aliceblue;
+}
+
+center {
+  padding: 10px;
+}

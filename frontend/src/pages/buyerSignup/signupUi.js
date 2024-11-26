@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
 
-const AdminSignup = () => {
+const BuyerSignup = () => {
   sessionStorage.removeItem("directBuy");
 
   const Navigate = useNavigate();
@@ -24,14 +24,12 @@ const AdminSignup = () => {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
-    console.log("UserDetails->", UserDetails);
+    console.log("UserDetails-", UserDetails);
     try {
       const result = await submitForm(UserDetails);
       console.log("result from function to ui:- ", result);
       if (result.status === 200) {
-        console.log("result in if block:- ", result.status);
-
-        await toast.success("Admin has been created", {
+        await toast.success("successfully registered", {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -49,8 +47,6 @@ const AdminSignup = () => {
         //   Navigate("/home");
         // }, 2000);
       } else {
-        console.log("else error->", result.data.message);
-
         toast.error(result.data.message, {
           position: "top-right",
           autoClose: 1000,
@@ -63,7 +59,7 @@ const AdminSignup = () => {
         });
       }
     } catch (error) {
-      console.log("catch error->", error);
+      console.log("error", error);
       if (error.message) {
         toast.error(error.message, {
           position: "top-right",
@@ -104,7 +100,7 @@ const AdminSignup = () => {
         <VegefoodsLogo />
       </center>
       <center>
-        <h3>ADMIN</h3>
+        <h3>USER</h3>
       </center>
 
       <h2 className="signup--welcome--mobile">welcome</h2>
@@ -156,11 +152,11 @@ const AdminSignup = () => {
 
       <center className="Already--have--an--account--div">
         <h4>
-          Already have an account? <Link to="/adminLogin">Sign in</Link>{" "}
+          Already have an account? <Link to="/buyerLogin">Sign in</Link>{" "}
         </h4>
       </center>
     </div>
   );
 };
 
-export default AdminSignup;
+export default BuyerSignup;

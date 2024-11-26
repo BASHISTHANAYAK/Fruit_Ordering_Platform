@@ -1,0 +1,13 @@
+.logo {
+  /* border: 2px solid; */
+  padding: 0;
+  margin: 0;
+  /* padding: 1%; */
+}
+.logo > h1 {
+  cursor: pointer;
+}
+.logo:hover {
+  transition: transform 0.2s ease-in;
+  transform: scale(0.97);
+}
