@@ -1,0 +1,176 @@
+Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.login--welcome--mobile {
+  display: none;
+}
+#login--form {
+  border: 1px solid transparent;
+  margin-top: 1vw;
+}
+.login--container {
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  width: 28vw;
+  margin: auto;
+  padding: 5px 15px;
+}
+.SignIn {
+  font-weight: 500;
+}
+.SignIn span {
+  display: none;
+}
+.login--container > label {
+  font-weight: 500;
+}
+.login--privacy--notice {
+  font-weight: 400;
+  font-size: 12px;
+}
+.login--button {
+  background-color: #2e0052;
+  width: 100%;
+  color: white;
+  padding: 10px;
+  margin: 5px 0px;
+  border: none;
+  cursor: pointer;
+}
+
+#login--form input {
+  width: 100%;
+  margin: 8px 0;
+  padding: 9px 20px;
+  display: inline-block;
+  border: 1px solid #b6b6b6;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.login--button:hover {
+  opacity: 0.7;
+}
+
+.login--new--to--cart,
+.login--create--your--account--button {
+  border: 1px solid rgba(189, 189, 189, 1);
+  width: 30vw;
+  height: 2vw;
+  margin: 1.5% auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0%;
+}
+.login--new--to--cart {
+  border-color: transparent;
+  font-size: 13px;
+  height: auto;
+}
+.login--create--your--account--button {
+  padding: 8px 0px;
+  display: flex;
+  justify-content: center;
+}
+.login--new--to--cart .line1,
+.line2 {
+  border: 1px solid #bdbdbd;
+  width: 33%;
+}
+
+/* nav and footer and logo image css */
+.loginPage--centerTag > img {
+  width: auto;
+  height: 38px;
+  margin-top: 2.5vw;
+}
+.login--music--Logo--ForMobile {
+  display: none;
+}
+.login--mobilenav {
+  width: 100%;
+  height: 50px;
+  display: none;
+}
+.footerWEB > img {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.login--create--your--account--button #LinkTag {
+  text-decoration: none;
+  color: #000000;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+@media screen and (max-width: 1000px) {
+  .login--container {
+    width: 40vw;
+  }
+  .login--new--to--cart,
+  .login--create--your--account--button {
+    /* border-color: transparent; */
+    font-size: 10px;
+    margin: 1% auto;
+    height: auto;
+  }
+}
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+@media screen and (max-width: 500px) {
+  .login--mobilenav {
+    width: 100%;
+    height: 50px;
+    display: inline;
+  }
+  .login--music--Logo--ForMobile {
+    display: inline;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+  .loginPage--centerTag > img {
+    display: none;
+  }
+  .login--welcome--mobile {
+    display: block;
+    font-weight: 400;
+    font-size: 30px;
+    margin: 7px 0px 0px 30px;
+    color: #2e0052;
+  }
+  .SignIn span {
+    display: inline;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  .login--container {
+    width: 72%;
+    padding: 1vw 5vw;
+  }
+  .login--new--to--cart,
+  .login--create--your--account--button {
+    width: 83vw;
+  }
+}
+@media screen and (max-width: 270px) {
+  .login--container {
+    width: 90%;
+    padding: 1vw 5vw;
+  }
+  .login--new--to--cart,
+  .login--create--your--account--button {
+    margin: 0 auto 0 auto;
+    font-size: 7px;
+  }
+  .SignIn span {
+    font-size: 10px;
+  }
+}

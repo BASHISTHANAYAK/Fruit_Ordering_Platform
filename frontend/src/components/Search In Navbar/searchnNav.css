@@ -1,0 +1,73 @@
+
+  /* blank nav for mobile */
+  .BlankBlueNav {
+    display: block;
+    border: 1px solid transparent;
+    width: 100vw;
+    background-color: rgba(46, 0, 82, 1);
+    height: 75px;
+  }
+ 
+/* search css for large start*/
+.search--div {
+    border: 1px solid transparent;
+    width: 90vw;
+    height: auto;
+    margin: 3px auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+    display: none;
+  }
+  .search--div input,
+  .search--div form {
+    border: 1px solid rgba(200, 200, 200, 1);
+    border-left: transparent;
+    height: 100%;
+    width: 100%;
+    border-radius: 0px 15px 15px 0px;
+    outline: none;
+  }
+  .searchicon {
+    border: 1.5px solid rgba(200, 200, 200, 1);
+    width: 28px;
+    height: 24px;
+    padding: 7.3px;
+    border-right: transparent;
+    border-radius: 15px 0px 0px 15px;
+  }
+  
+  /* search css for large end*/
+  
+
+
+
+
+
+
+
+  /* search css for small screen */
+  .search--div {
+    border: 2px solid transparent;
+    display: flex;
+    position: absolute;
+    top: 3vh;
+    margin-left: 5%;
+    background-color: white;
+    border-radius: 4px;
+  }
+  .search--div input,
+  .search--div form {
+    border: 2px solid red;
+    height: 100%;
+    width: 100%;
+    border-color: transparent;
+  }
+  .searchicon {
+    width: 28px;
+    height: 24px;
+    padding: 7.3px;
+    border-radius: 5px 0px 0px 5px;
+    border-color: transparent;
+  }

@@ -1,0 +1,58 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.footer--forMobile {
+  display: block;
+  border: 1px solid transparent;
+  border-color: rgba(200, 200, 200, 1) transparent transparent transparent;
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0px;
+  position: absolute;
+  bottom: 0;
+  margin-top: auto;
+}
+.footer--forMobile > div {
+  border-top: 3px solid transparent;
+  text-align: center;
+  padding: 0px;
+  border-radius: 2px;
+}
+.footer--forMobile > div > img {
+  height: 15px;
+}
+.footer--forMobile > div.selected {
+  border-color: rgba(46, 0, 82, 1);
+}
+.footer--forMobile > div > p {
+  margin: 0;
+  font-weight: 500;
+}
+.footer--forMobile > div:last-child > span {
+  font-weight: bolder;
+}
+
+/* from here i will change footer css to stick at page bottom always */
+/* body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+} */
+
+/* .footer--forMobile {
+  border: 2px dotted transparent;
+  position: absolute;
+  bottom: 0;
+  margin-top: auto;
+
+} */

@@ -1,0 +1,12 @@
+.circle--arrow {
+  border: 1px solid transparent;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 13px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  margin-left: 3%;
+}

@@ -1,0 +1,341 @@
+.checkOut--mobileNav {
+  display: none;
+}
+
+.Checkout--heading {
+  font-weight: 600;
+  font-size: 20px;
+  width: 20vw;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+/* products details start */
+.container {
+  border: 1px solid transparent;
+  width: 90vw;
+  height: auto;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 5px;
+  margin-bottom: 130px;
+}
+.container > div {
+  border: 1px solid transparent;
+  padding: 4px;
+}
+.product--Side {
+  width: 60%;
+  /* height: 95%; */
+}
+.product--Side > div {
+  border-bottom: 2px solid rgba(225, 225, 225, 1);
+  width: 100%;
+  margin-top: 1%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+
+.address--detail {
+  border: 1px solid transparent;
+  margin-right: 8%;
+}
+
+.address--text,
+.payment--text,
+.Review--items--text {
+  font-weight: 500;
+  color: #b52b00;
+  margin: 0;
+}
+
+.address--detail > p,
+.pay--on--del--text > p {
+  margin: 0;
+  color: #797979;
+  font-weight: 400;
+  font-size: 14px;
+}
+.review--item--div {
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.product--img-etc {
+  border: 1px solid transparent;
+  width: 34%;
+  padding: 3px;
+  height: 250px;
+}
+.img--and--detail {
+  border: 2px solid transparent;
+  height: 79%;
+  width: 97%;
+  overflow: auto;
+}
+.img--and--detail h6 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.img--and--detail p {
+  margin: 2px 0 0 0;
+  font-size: 10px;
+  color: #797979;
+}
+.img--and--detail img {
+  border: 2px solid rgb(46, 0, 82);
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+}
+.Estimated--delivery {
+  border: 1px solid transparent;
+  margin: 3% 0 0 0;
+}
+.Estimated--delivery > p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* place order and order summary */
+.container > .Placeorder--Side {
+  border: 2px solid rgba(225, 225, 225, 1);
+  width: 29%;
+  height: 55%;
+  padding: 5px 5px 15px 5px;
+  border-radius: 5px;
+}
+.Placeorder--Side button {
+  display: block;
+  margin: auto;
+  width: 100%;
+  padding: 5px 7px;
+  background-color: rgb(255, 214, 0);
+  border-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Placeorder--Side button + p {
+  text-align: center;
+  font-size: 10px;
+  width: 100%;
+}
+.item--and--delivery,
+.Order--Total--div {
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: space-between;
+}
+.item--and--delivery > div > p {
+  margin: 0;
+  color: #797979;
+}
+.item--and--delivery > div {
+  border: 1px solid transparent;
+}
+.Order--Total--div {
+  margin-top: 10px;
+}
+.Order--Total--div h4 {
+  color: #b52b00;
+  margin: 0;
+}
+.division--line {
+  width: 100%;
+}
+.division--line + h4 {
+  margin: 0;
+}
+/* below  placeOrder*/
+.placeOrder--bottom {
+  border: 2px solid rgba(225, 225, 225, 1);
+  width: 66vw;
+  height: auto;
+  margin: 10px 7vw;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 70px;
+}
+.placeOrder--bottom button {
+  width: 160px;
+  padding: 4px 0px;
+  border-color: transparent;
+  background-color: rgb(255, 214, 0);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.placeOrder--bottom > div:first-child {
+  order: 0;
+}
+
+.placeOrder--bottom > div:last-child {
+  order: 1;
+}
+
+.placeOrder--bottom h5 {
+  margin: 0;
+  color: #b52b00;
+}
+.placeOrder--bottom p {
+  margin: 0;
+  font-size: 10px;
+}
+.checkOutPage--footerWEB--IMAGE {
+  border: 1px dotted transparent;
+  height: auto;
+  width: 100%;
+  position: static;
+  bottom: 0;
+  left: 0;
+}
+.checkOut--FooterMobile {
+  display: none;
+}
+@media screen and (max-width: 560px) {
+  .container {
+    border: 1px solid transparent;
+    width: 98vw;
+    padding: 0px;
+  }
+  .container > div {
+    border: 1px solid transparent;
+    padding: 0px;
+  }
+  .product--Side {
+    width: 65%;
+  }
+  .address--detail {
+    border: 1px solid transparent;
+    /* margin-right: 7vw; */
+  }
+  .product--img-etc {
+    border: 1px solid transparent;
+    width: 55%;
+    padding: 0px;
+  }
+
+  .Placeorder--Side {
+    width: 34%;
+    height: auto;
+    padding: 0px;
+  }
+
+  .item--and--delivery > div > p {
+    margin: 0;
+    color: #797979;
+    font-size: 12px;
+  }
+
+  .Order--Total--div h4 {
+    color: #b52b00;
+    margin: 0;
+    font-size: 13px;
+  }
+  .placeOrder--bottom {
+    bottom: 52px;
+    font-size: 10px;
+    width: 90vw;
+  }
+}
+/* for mobile */
+@media screen and (max-width: 405px) {
+  .checkout--NavBar--BannerAndCart--BackToProductBUTTON,
+  .checkOutPage--footerWEB--IMAGE {
+    display: none;
+  }
+  .checkOut--mobileNav {
+    display: block;
+  }
+  .Checkout--heading {
+    margin: 2% 0 0 20px;
+  }
+  .Checkout--heading u {
+    text-decoration: none;
+  }
+  /* product container */
+  .container {
+    border: 1px solid transparent;
+    display: block;
+  }
+  .product--Side {
+    width: 95%;
+    margin: auto;
+  }
+  .product--Side > div {
+    border: 1px dotted transparent;
+    width: 100%;
+    margin-top: 1%;
+    display: block;
+    /* align-items: flex-start;
+    justify-content: space-between; */
+    padding: 5px 0px;
+  }
+
+  /* place order side */
+
+  .Placeorder--Side button,
+  .conditions,
+  .Order--Total--div {
+    display: none;
+  }
+  .Placeorder--Side {
+    width: 45vw;
+    margin-left: 10px;
+  }
+  .container > .Placeorder--Side {
+    border-color: transparent;
+  }
+  /* ******************** */
+  /* bottom place order button */
+  .placeOrder--bottom {
+    border-color: transparent;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100vw;
+    margin: 10px 0;
+  }
+  /* order total  */
+  .placeOrder--bottom > div:last-child {
+    border: 1px dashed transparent;
+    display: block;
+    order: 0;
+    display: block;
+    width: 90vw;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .OrderTotal--span {
+    margin-right: 10vw;
+  }
+  /* button div*/
+  .placeOrder--bottom > div:first-child {
+    border: 1px solid transparent;
+    display: block;
+    order: 1;
+    width: 95%;
+  }
+  .placeOrder--bottom > div:first-child button {
+    width: 90%;
+    display: block;
+    margin: auto;
+  }
+
+  .placeOrder--bottom p {
+    display: none;
+  }
+  .checkOut--FooterMobile {
+    display: block;
+  }
+}

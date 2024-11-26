@@ -1,0 +1,39 @@
+.logo--and--banner {
+  border: 1px solid transparent;
+  width: 90vw;
+  height: auto;
+  margin: auto;
+}
+.logo--div {
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  width: 90px;
+  cursor: pointer;
+}
+.space {
+  width: 10px;
+}
+.logo--div > div:nth-child(1) {
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+.viewcart {
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.viewcart > img {
+  width: 80px;
+}
+.logo--div .Link {
+  text-decoration: none;
+  color: black;
+}

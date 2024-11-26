@@ -1,0 +1,12 @@
+.loadingImg {
+    border: 1px solid transparent;
+    width: 30vw;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .loadingImg > img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
