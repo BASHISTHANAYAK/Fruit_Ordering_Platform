@@ -17,19 +17,20 @@ const Login = () => {
 
   const Navigate = useNavigate();
   const [UserDetails, setUserdetails] = useState({
-    mobileORemail: "",
+    email: "",
     password: "",
   });
 
   const handleEnterDetails = (e) => enterDetails(e, setUserdetails);
 
   const handleSubmitForm = async (event) => {
-    try {
-      const result = await submitForm(event, UserDetails);
-      console.log("result from function to ui:- ", result.message);
+    event.preventDefault();
 
-      if (result.message === "User loggedin") {
-        await toast.success("login successful", {
+    try {
+      const result = await submitForm(UserDetails);
+      console.log("result from function to ui:- ", result);
+      if (result.status === 200) {
+        await toast.success(result.data.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -41,13 +42,13 @@ const Login = () => {
         });
 
         // saving jwt token in session storage
-        sessionStorage.setItem("jwttoken", JSON.stringify(result.jwttoken));
+        sessionStorage.setItem("jwttoken", JSON.stringify(result.data.jwttoken));
 
         setTimeout(() => {
           Navigate("/");
         }, 2000);
       } else {
-        toast.error(result.message, {
+        toast.error(result.response.data.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -90,11 +91,7 @@ const Login = () => {
 
       {/* logo for larger screen */}
       <center className="loginPage--centerTag">
-        <img
-          src={MusicLogo}
-          alt="MusicLogo"
-          onClick={() => Navigate("/")}
-        />
+        <img src={MusicLogo} alt="MusicLogo" onClick={() => Navigate("/")} />
       </center>
       <h2 className="login--welcome--mobile">welcome</h2>
       <form action="" id="login--form" onSubmit={handleSubmitForm}>
@@ -102,10 +99,10 @@ const Login = () => {
           <h3 className="SignIn">
             SignIn <span>Already a customer?</span>
           </h3>
-          <label>Enter your email or mobile number </label>
+          <label>Enter your email </label>
           <input
             type="text"
-            name="mobileORemail"
+            name="email"
             required
             onChange={handleEnterDetails}
             value={UserDetails.mobile}

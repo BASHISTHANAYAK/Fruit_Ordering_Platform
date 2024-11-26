@@ -87,11 +87,7 @@ Body {
   height: 50px;
   display: none;
 }
-.footerWEB > img {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-}
+
 @media screen and (max-width: 1000px) {
   .singup--container {
     width: 40vw;
@@ -156,40 +152,4 @@ Body {
   }
 }
 /* ************************************************************************ */
-/* 
 
-
-@media screen and (max-width: 500px) {
-  .mobilenav {
-    width: 100%;
-    height: 50px;
-    display: inline;
-  }
-  .music--Logo--ForMobile {
-    display: inline;
-    position: absolute;
-    top: 10px;
-    left: 15px;
-  }
-  .signup--center > img {
-    display: none;
-  }
-  .signup--welcome--mobile {
-    display: block;
-    font-weight: 400;
-    font-size: 45px;
-    margin: 10px 0px 0px 30px;
-    color: #2e0052;
-  }
-  .singup--form {
-    margin-top: 1vh;
-  }
-  .singup--container {
-    width: 77vw;
-    padding: 4vw;
-  }
-  .new--to--cart,
-  .create--your--account--button {
-    width: 83vw;
-  }
-} */

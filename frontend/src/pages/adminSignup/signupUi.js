@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { enterDetails, submitForm } from "./signupFunction";
-import MusicLogo from "../../assets/images/musicCartLogo.png";
-import footerWEB from "../../assets/images/footerWEB.png";
 import mobilenav from "../../assets/images/mobileLoginNav.png";
 import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
 import { Link } from "react-router-dom";
@@ -42,7 +40,7 @@ const Signup = () => {
         });
         await sessionStorage.setItem(
           "jwttoken",
-          JSON.stringify(result.jwttoken)
+          JSON.stringify(result.data.jwttoken)
         );
         setTimeout(() => {
           Navigate("/home");
@@ -96,10 +94,7 @@ const Signup = () => {
         alt="MusicLogoMobile"
         className="music--Logo--ForMobile"
       />
-      {/* <center className="signup--center">
-        <img src={MusicLogo} alt="MusicLogo" />
-      </center> */}
-
+  
       <center>
         <h1>Vegefoods</h1>
       </center>
@@ -156,10 +151,6 @@ const Signup = () => {
           Already have an account? <Link to="/login">Sign in</Link>{" "}
         </h4>
       </center>
-
-      {/* <div className="footerWEB">
-        <img src={footerWEB} alt="footerWEB" />
-      </div> */}
     </div>
   );
 };

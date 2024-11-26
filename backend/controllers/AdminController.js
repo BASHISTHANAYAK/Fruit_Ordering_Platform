@@ -71,4 +71,50 @@ const AdminSignupRoute = async (req, res) => {
   }
 };
 
-export { AdminSignupRoute };
+// +++++++++++++++++++++++++++++++*********   login  **********==================================================
+// login
+const adminLoginRoute = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    console.log("adminLoginRoute", { email, password });
+
+    if (email === "" || password === "") {
+      return res.status(400).json({ message: "Please enter all details" });
+    }
+
+    const adminExists = await AdminModel.findOne({ email: email });
+
+    if (!adminExists) {
+      console.log("Admin notfound");
+      return res.status(400).json({ message: "Admin not found" });
+    } else {
+      // matching password
+      const salt = bcryptjs.genSaltSync(10);
+
+      const passwordsMatch = bcryptjs.compareSync(
+        password,
+        adminExists.password
+      );
+
+      if (passwordsMatch) {
+        const jwttoken = jwt.sign(
+          adminExists.toJSON(),
+          process.env.JWT_SECRET_KEY,
+          { expiresIn: "1d" }
+        );
+        // Set the token in the response headers
+        return res
+          .status(200)
+          .json({ message: "Admin loggedin", jwttoken: jwttoken });
+      } else {
+        console.log("Admin not registered");
+        return res.status(400).json({ message: "Not a Admin" });
+      }
+    }
+  } catch (error) {
+    console.log("error", error);
+    return res.status(400).json({ message: "unable to login" });
+  }
+};
+
+export { AdminSignupRoute, adminLoginRoute };

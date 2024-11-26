@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../pages/login/loginUi.js";
-import Signup from "../pages/signup/signupUi.js";
+import Login from "../pages/adminLogin/loginUi.js";
+import Signup from "../pages/adminSignup/signupUi.js";
 import Home from "../pages/Homepage/home.js";
 import ProductDetail from "../pages/ProductDetails/productDetail.js";
 import ViewCart from "../pages/Viewcart/viewCart.js";

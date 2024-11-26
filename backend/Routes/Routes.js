@@ -12,7 +12,7 @@ import express from "express";
 // import { filterProduct, productById } from "../controllers/allProducts.js";
 
 // ---------------------
-import { AdminSignupRoute } from "../controllers/AdminController.js";
+import { adminLoginRoute, AdminSignupRoute } from "../controllers/AdminController.js";
 
 const router = express.Router();
 
@@ -46,6 +46,7 @@ const router = express.Router();
 // --------------------------------------
 // Admin SignUP 
 router.post("/adminSignup", AdminSignupRoute);
-
+//adminLoginRoute
+ router.post("/adminLogin", adminLoginRoute);
 
 export default router;
