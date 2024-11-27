@@ -50,6 +50,7 @@ const BuyerSignup = () => {
           setUser({
             name: result.data.detail.name,
             role: result.data.detail.role,
+            _id: result.data.detail._id,
           })
         );
 

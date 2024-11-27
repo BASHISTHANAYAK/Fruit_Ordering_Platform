@@ -51,15 +51,17 @@ const buyerSignupRoute = async (req, res) => {
       if (buyerCreated) {
         const jwttoken = jwt.sign(
           buyerCreated.toJSON(),
-          process.env.JWT_SECRET_KEY,
+          process.env.USER_JWT_SECRET_KEY,
           { expiresIn: "40m" }
         );
 
         console.log("buyer added");
         // Set the token in the response headers
-        return res
-          .status(200)
-          .json({ message: "buyer has been created", jwttoken: jwttoken });
+        return res.status(200).json({
+          message: "buyer has been created",
+          jwttoken: jwttoken,
+          detail: { name: name, role: "Buyer", _id: buyerCreated._id },
+        });
       } else {
         console.log("buyer could not be created");
         return res.status(400).json({ message: "buyer could not be created" });
@@ -99,16 +101,24 @@ const buyerLoginRoute = async (req, res) => {
       if (passwordsMatch) {
         const jwttoken = jwt.sign(
           buyerExists.toJSON(),
-          process.env.JWT_SECRET_KEY,
+          process.env.USER_JWT_SECRET_KEY,
           { expiresIn: "1d" }
         );
         // Set the token in the response headers
-        return res
-          .status(200)
-          .json({ message: "Buyer loggedin", jwttoken: jwttoken });
+        return res.status(200).json({
+          message: "Buyer loggedin",
+          jwttoken: jwttoken,
+          detail: {
+            name: buyerExists.name,
+            role: buyerExists.role,
+            _id: buyerExists._id,
+          },
+        });
       } else {
         console.log("Buyer not registered");
-        return res.status(400).json({ message: "Account not found please register" });
+        return res
+          .status(400)
+          .json({ message: "Account not found please register" });
       }
     }
   } catch (error) {
@@ -117,4 +127,40 @@ const buyerLoginRoute = async (req, res) => {
   }
 };
 
-export { buyerSignupRoute, buyerLoginRoute };
+// add to cart -------------------------------------------------------------
+const addToCart = async (req, res) => {
+  const { buyerId } = req.params; // ID of the buyer
+  const { productId, quantity } = req.body; // ID of the product and quantity
+  console.log({ productId, buyerId, quantity });
+  try {
+    const buyer = await BuyerModel.findById(buyerId);
+
+    if (!buyer) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+
+    // Check if the product is already in the cart
+    const cartItem = buyer.cart.find(
+      (item) => item.product.toString() === productId
+    );
+
+    if (cartItem) {
+      // Update quantity if product exists in the cart
+      cartItem.quantity += quantity;
+    } else {
+      // Add new product to the cart
+      buyer.cart.push({ product: productId, quantity });
+    }
+
+    await buyer.save(); // Save changes to the buyer's document
+
+    return res
+      .status(200)
+      .json({ message: "Product added to cart", cart: buyer.cart });
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { buyerSignupRoute, buyerLoginRoute, addToCart };

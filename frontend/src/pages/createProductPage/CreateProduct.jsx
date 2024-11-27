@@ -3,8 +3,12 @@ import createProductCss from "./createProduct.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
 import { submitForm } from "./productFunction.js";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {
+  const { _id } = useSelector((state) => state);
+  const navigate = useNavigate();
   const [productDetails, setproductDetails] = useState({
     name: "",
     price: "",
@@ -24,13 +28,10 @@ const CreateProduct = () => {
   const handleSubmitForm = async (event) => {
     event.preventDefault();
     try {
-      const result = await submitForm(
-        productDetails,
-        "67462c07286cc04d3889b29c"
-      );
+      const result = await submitForm(productDetails, _id);
       console.log("result from function to ui:- ", result);
       if (result.status === 201) {
-        console.log("result in if block:- ", result.status);
+        console.log("result in if block:- ", result);
         toast.success("Admin has been created", {
           position: "top-right",
           autoClose: 1000,
@@ -41,13 +42,13 @@ const CreateProduct = () => {
           progress: undefined,
           theme: "light",
         });
-        sessionStorage.setItem(
-          "jwttoken",
-          JSON.stringify(result.data.jwttoken)
-        );
-        // setTimeout(() => {
-        //   Navigate("/home");
-        // }, 2000);
+        // sessionStorage.setItem(
+        //   "jwttoken",
+        //   JSON.stringify(result.data.jwttoken)
+        // );
+        setTimeout(() => {
+          navigate("/adminDashboard");
+        }, 2000);
       } else {
         console.log("else error->", result.data.message);
         toast.error(result.data.message, {
@@ -144,6 +145,7 @@ const CreateProduct = () => {
             onChange={handleEnterDetails}
             value={productDetails.category}
           >
+            <option value="">---Select---</option>
             <option value="Vegetable">Vegetable</option>
             <option value="Fruit">Fruit</option>
           </select>

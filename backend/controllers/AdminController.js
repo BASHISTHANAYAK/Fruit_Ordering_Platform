@@ -51,15 +51,17 @@ const AdminSignupRoute = async (req, res) => {
       if (adminCreated) {
         const jwttoken = jwt.sign(
           adminCreated.toJSON(),
-          process.env.JWT_SECRET_KEY,
+          process.env.ADMIN_JWT_SECRET_KEY,
           { expiresIn: "40m" }
         );
 
         console.log("admin added");
         // Set the token in the response headers
-        return res
-          .status(200)
-          .json({ message: "admin has been created", jwttoken: jwttoken });
+        return res.status(200).json({
+          message: "admin has been created",
+          jwttoken: jwttoken,
+          detail: { name: name, role: "Admin", _id: adminCreated._id },
+        });
       } else {
         console.log("admin could not be created");
         return res.status(400).json({ message: "admin could not be created" });
@@ -99,13 +101,19 @@ const adminLoginRoute = async (req, res) => {
       if (passwordsMatch) {
         const jwttoken = jwt.sign(
           adminExists.toJSON(),
-          process.env.JWT_SECRET_KEY,
+          process.env.ADMIN_JWT_SECRET_KEY,
           { expiresIn: "1d" }
         );
         // Set the token in the response headers
-        return res
-          .status(200)
-          .json({ message: "Admin loggedin", jwttoken: jwttoken });
+        return res.status(200).json({
+          message: "Admin loggedin",
+          jwttoken: jwttoken,
+          detail: {
+            name: adminExists.name,
+            role: adminExists.role,
+            _id: adminExists._id,
+          },
+        });
       } else {
         console.log("Admin not registered");
         return res.status(400).json({ message: "Not a Admin" });

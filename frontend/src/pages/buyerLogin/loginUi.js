@@ -19,7 +19,6 @@ const BuyerLogin = () => {
   // sessionStorage.removeItem("directBuy");
   const dispatch = useDispatch();
 
-
   const Navigate = useNavigate();
   const [UserDetails, setUserdetails] = useState({
     email: "",
@@ -56,6 +55,7 @@ const BuyerLogin = () => {
           setUser({
             name: result.data.detail.name,
             role: result.data.detail.role,
+            _id: result.data.detail._id,
           })
         );
 

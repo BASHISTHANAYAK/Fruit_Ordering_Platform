@@ -13,6 +13,11 @@ Body {
   min-height: 100vh;
   box-sizing: inherit;
 }
+/* gotoDashboard */
+.signUp_Container #gotoDashboard {
+  cursor: pointer;
+}
+
 center h1 {
   /* border: 2px solid; */
   padding: 0;

@@ -2,7 +2,20 @@ import React from "react";
 import BlankNavbar from "../../assets/images/mobileLoginNav.png";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-const NavWithoutLogin = (props) => {
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../ReduxPersist/actions";
+const NavWithoutLogin = () => {
+  const red = useSelector((state) => state);
+  const Login = !red.isLoggedIn;
+  const Signup = !red.isLoggedIn;
+  const Logout = red.isLoggedIn;
+  const dispatch = useDispatch();
+
+  // Login={!isLoggedIn && "Login"}
+  // Signup={!isLoggedIn && "Signup"}
+  // Logout={isLoggedIn && "Logout"}
+  console.log("home  ,redux->", red);
+
   return (
     <div>
       <nav className="homePage--Navbar">
@@ -18,14 +31,14 @@ const NavWithoutLogin = (props) => {
         </div>
         <div>
           <span>
-            {props.Login && (
+            {Login && (
               <Link className="login--SignButton" to="/selectAccountType">
                 Login
               </Link>
             )}
           </span>
           <span>
-            {props.Signup && (
+            {Signup && (
               <>
                 <span> | </span>
                 <Link className="login--SignButton" to="/selectAccountType">
@@ -35,8 +48,12 @@ const NavWithoutLogin = (props) => {
             )}
           </span>
           <span>
-            {props.Logout && (
-              <Link className="login--SignButton" to="/login">
+            {Logout && (
+              <Link
+                className="login--SignButton"
+                to="/selectAccountType"
+                onClick={() => dispatch(logoutUser())}
+              >
                 Logout
               </Link>
             )}

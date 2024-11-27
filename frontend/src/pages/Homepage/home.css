@@ -1,5 +1,5 @@
 /* nav and banner section */
-body{
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -237,15 +237,10 @@ body{
   padding: 10px 6px;
   margin-left: 3%;
   font-size: 12px;
-  cursor: pointer;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   padding: 10px;
   padding-bottom: 40px;
-}
-.Asingle--Product--div:hover {
-  transition: transform 0.5s ease-in-out;
-  transform: scale(1.04);
 }
 
 .Asingle--Product--div > .blueColor {
@@ -295,13 +290,28 @@ body{
 .FooterMobile {
   display: none;
 }
-
+/* ------------------------------------------------------------------- */
 .Details {
   display: none;
 }
 .HeadLine {
   display: none;
 }
+/* please_log for adding to cart  */
+
+.Add_to_cart,
+.please_log {
+  border: 2px solid;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 12px;
+  cursor: pointer;
+}
+.Add_to_cart:hover,
+.please_log {
+  transform: scale(0.97);
+}
+
 /* *********************************************************** */
 @media screen and (max-width: 1000px) {
   .allProduct--container--Child {

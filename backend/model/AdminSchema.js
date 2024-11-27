@@ -5,6 +5,7 @@ const AdminSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }], // References Product IDs
+  role: { type: String, default: "Admin" }, // Default value for the role field
 });
 
 export const AdminModel = mongoose.model("Admin", AdminSchema);
