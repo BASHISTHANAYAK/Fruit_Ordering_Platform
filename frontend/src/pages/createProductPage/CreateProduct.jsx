@@ -1,40 +1,37 @@
 import React, { useState } from "react";
-import "./signup.css";
-import { enterDetails, submitForm } from "./signupFunction";
-import mobilenav from "../../assets/images/mobileLoginNav.png";
-import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
-import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import createProductCss from "./createProduct.module.css";
+import { toast, ToastContainer } from "react-toastify";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
-import { setUser } from "../../ReduxPersist/actions";
-import { useDispatch } from "react-redux";
+import { submitForm } from "./productFunction.js";
 
-const AdminSignup = () => {
-  // sessionStorage.removeItem("directBuy");
-  const dispatch = useDispatch();
-
-  const Navigate = useNavigate();
-  const [UserDetails, setUserdetails] = useState({
+const CreateProduct = () => {
+  const [productDetails, setproductDetails] = useState({
     name: "",
-    // mobile: "",
-    email: "",
-    password: "",
+    price: "",
+    description: "",
+    image: "",
+    category: "",
   });
 
-  const handleEnterDetails = (e) => enterDetails(e, setUserdetails);
+  const handleEnterDetails = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setproductDetails((pre) => {
+      return { ...pre, [name]: value };
+    });
+  };
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
-    console.log("UserDetails->", UserDetails);
     try {
-      const result = await submitForm(UserDetails);
+      const result = await submitForm(
+        productDetails,
+        "67462c07286cc04d3889b29c"
+      );
       console.log("result from function to ui:- ", result);
-      if (result.status === 200) {
+      if (result.status === 201) {
         console.log("result in if block:- ", result.status);
-
-        await toast.success("Admin has been created", {
+        toast.success("Admin has been created", {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -44,24 +41,15 @@ const AdminSignup = () => {
           progress: undefined,
           theme: "light",
         });
-        await sessionStorage.setItem(
+        sessionStorage.setItem(
           "jwttoken",
           JSON.stringify(result.data.jwttoken)
         );
-
-        dispatch(
-          setUser({
-            name: result.data.detail.name,
-            role: result.data.detail.role,
-          })
-        );
-
-        setTimeout(() => {
-          Navigate("/adminDashboard");
-        }, 2000);
+        // setTimeout(() => {
+        //   Navigate("/home");
+        // }, 2000);
       } else {
         console.log("else error->", result.data.message);
-
         toast.error(result.data.message, {
           position: "top-right",
           autoClose: 1000,
@@ -104,12 +92,6 @@ const AdminSignup = () => {
   return (
     <div className="signUp_Container">
       <ToastContainer />
-      <img src={mobilenav} alt="mobilenav" className="mobilenav" />
-      <img
-        src={MusicLogoMobile}
-        alt="MusicLogoMobile"
-        className="music--Logo--ForMobile"
-      />
 
       <center>
         <VegefoodsLogo />
@@ -121,57 +103,58 @@ const AdminSignup = () => {
       <h2 className="signup--welcome--mobile">welcome</h2>
       <form className="singup--form" onSubmit={handleSubmitForm}>
         <div className="singup--container">
-          <h3 className="Create--Account">
-            Create Account <span>Don’t have an account?</span>
-          </h3>
+          <h3 className="Create--Account">Create Product</h3>
 
-          <label>Your name </label>
+          <label>Product name </label>
           <input
             type="text"
             name="name"
             required
             onChange={handleEnterDetails}
-            value={UserDetails.name}
+            value={productDetails.name}
           />
 
-          <label>Email id </label>
+          <label>price </label>
           <input
-            type="email"
-            name="email"
+            type="number"
+            name="price"
             required
             onChange={handleEnterDetails}
-            value={UserDetails.email}
+            value={productDetails.price}
           />
-          <label>Password </label>
+          <label>description </label>
           <input
-            type="password"
-            name="password"
+            type="text"
+            name="description"
             required
             onChange={handleEnterDetails}
-            value={UserDetails.password}
+            value={productDetails.description}
           />
-
-          <p className="enrolling--message">
-            By enrolling your mobile phone number, you consent to receive
-            automated security notifications via text message from Vegefoods.
-          </p>
+          <label>Image Link </label>
+          <input
+            type="text"
+            name="image"
+            required
+            onChange={handleEnterDetails}
+            value={productDetails.image}
+          />
+          <label>category </label>
+          <select
+            name="category"
+            onChange={handleEnterDetails}
+            value={productDetails.category}
+          >
+            <option value="Vegetable">Vegetable</option>
+            <option value="Fruit">Fruit</option>
+          </select>
 
           <button type="submit" className="signup--button">
             Continue
           </button>
-          <p className="privacy--notice">
-            By continuing, you agree to Vegefoods privacy notice and conditions.
-          </p>
         </div>
       </form>
-
-      <center className="Already--have--an--account--div">
-        <h4>
-          Already have an account? <Link to="/adminLogin">Sign in</Link>{" "}
-        </h4>
-      </center>
     </div>
   );
 };
 
-export default AdminSignup;
+export default CreateProduct;

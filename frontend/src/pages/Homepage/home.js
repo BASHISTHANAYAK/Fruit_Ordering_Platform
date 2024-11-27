@@ -1,24 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavBar from "../../components/NavBar/navbar.js";
 import BannerAndCart from "../../components/LogoAndcart/LogoAndCart.js";
-import axios from "axios";
 import serverUrl from "../../config.js";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import FooterMobile from "../../components/footerForMobile/footerMobile.js";
 import searchicon from "../../assets/images/searchicon.png";
 import GridBLACK from "../../assets/images/gridBLACK.png";
 import GridWHITE from "../../assets/images/gridWHITE.png";
 import LineWHITE from "../../assets/images//lineWHITE.png";
 import LineBLACK from "../../assets/images/lineBLACK.png";
 // import Banner from "../../assets/images/homePageBanner.png";
-import FooterBigScreen from "../../components/footer For BigScreen/footerBigScreen.js";
 import "./home.css";
+import api from "../../Axios_Interceptor/api.js";
+import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const Home = () => {
-  sessionStorage.removeItem("directBuy");
+  const red = useSelector((state) => state);
+  console.log("home  ,redux->", red);
 
   const Navigate = useNavigate();
+  // const { isLoggedin, isLoggedOut, name, role, test } = useSelector(
+  //   (state) => state.loggedInDetails
+  // );
+  // console.log("info redux,home->", {
+  //   isLoggedin,
+  //   isLoggedOut,
+  //   name,
+  //   role,
+  //   test,
+  // });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [gridBLACK, setGridImage] = useState(true);
@@ -37,6 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     const handleResize = () => {
+      console.log("handleResize");
       setScreenWidth(window.innerWidth);
     };
 
@@ -48,15 +60,15 @@ const Home = () => {
   }, []);
 
   // checking if user logged or not  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
-  const jwttoken = sessionStorage.getItem("jwttoken");
+  // const jwttoken = sessionStorage.getItem("jwttoken");
   // useEffect(() => {
+  //   console.log("checking if user logged or not ... ");
   //   async function test() {
   //     if (!jwttoken) {
   //       return;
   //     }
-
   //     try {
-  //       const isTokenValid = await axios.post(
+  //       const isTokenValid = await api.post(
   //         `${serverUrl}/isAuthenticated`,
   //         {},
   //         {
@@ -66,17 +78,20 @@ const Home = () => {
   //           },
   //         }
   //       );
+  //       console.log("isTokenValid-", isTokenValid);
   //       isTokenValid && setUser_id(isTokenValid.data.userInfo._id);
   //       // console.log("isTokenValid:- ", isTokenValid);
   //       isTokenValid && setIsLoggedIn(true);
   //     } catch (error) {
+  //       console.log("inside catch block");
+
   //       console.error("Error checking token validity:", error);
   //       setIsLoggedIn(false);
   //     }
   //   }
 
   //   test();
-  // }, [jwttoken]);
+  // }, []);
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++
   function clickGrid() {
@@ -95,21 +110,21 @@ const Home = () => {
 
   // Function for Search +++++++++++++++++++++++++++++
   const SearchPlaced = (event) => {
-    event.preventDefault();
-    let inputValue = inputRef.current.value;
-    // calling getData function
-    setFilteredData((prev) => {
-      return { ...prev, Company: inputValue };
-    });
-    console.log("SearchPlaced", inputValue);
-    inputRef.current.value = "";
+    // event.preventDefault();
+    // let inputValue = inputRef.current.value;
+    // // calling getData function
+    // setFilteredData((prev) => {
+    //   return { ...prev, Company: inputValue };
+    // });
+    // console.log("SearchPlaced", inputValue);
+    // inputRef.current.value = "";
   };
 
   // Function to fetch data based on search/page-load.. +++++++++++++++++++++++++++++
   // useEffect(() => {
   //   const getData = async () => {
   //     try {
-  //       const result = await axios.get(`${serverUrl}/getProduct`, {
+  //       const result = await api.get(`${serverUrl}/getProduct`, {
   //         params: { filteredData },
   //       });
   //       setAllData(result.data);
@@ -123,13 +138,12 @@ const Home = () => {
 
   // Function triggers when filters are selected+++++++++++++++++++++++++++++
   const SelectFilters = async (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    setFilteredData((prev) => {
-      return { ...prev, [name]: value };
-    });
-    console.log(value);
+    // const name = event.target.name;
+    // const value = event.target.value;
+    // setFilteredData((prev) => {
+    //   return { ...prev, [name]: value };
+    // });
+    // console.log(value);
   };
 
   // function triggers when we click on a product ++++++++++++++++++++++++++++++++++++++++++++++++
@@ -157,7 +171,7 @@ const Home = () => {
         ProductAvailable: Clickedobj.Available,
       };
 
-      const idProductAdded = await axios.post(
+      const idProductAdded = await api.post(
         `${serverUrl}/addToCART/${user_id}`,
         obj
       );
@@ -178,6 +192,21 @@ const Home = () => {
       console.log("ClickAddToCart error:- ", error);
     }
   }
+
+  // ------------------------- get all admin products---------------
+  // useEffect(() => {
+  //   async function getAllProduct() {
+  //     try {
+  //       const res = await api.get(`${serverUrl}/getAllProducts`);
+  //       console.log("getAllProducts res-", res);
+  //       setAllData(res.data);
+  //     } catch (error) {
+  //       console.log("getAllProduct error-", error);
+  //     }
+  //   }
+  //   getAllProduct();
+  // }, []);
+
   // =========================================== END ==================================================>
 
   return (
@@ -207,6 +236,11 @@ const Home = () => {
           <h1>Products</h1>
         </section>
       </div>
+
+      <section>
+        <h1>HI , User</h1>
+        {/* <button onClick={() => Navigate("/createProduct")}>AddProducts</button> */}
+      </section>
 
       {/* search box and inputs */}
       <div className="homePage--search--div">
@@ -318,40 +352,34 @@ const Home = () => {
             }
           >
             {AllData.map((obj, i) => (
-              <>
-                <div
-                  className="Asingle--Product--div"
-                  key={obj._id}
-                  storekey={obj._id}
-                  onClick={() => clickAproduct(obj._id)}
-                >
-                  <div className="blueColor" key={obj._id}>
-                    <img src={obj.ProdectImage} alt="productImg" />
-                    <div
-                      className="cartDIV"
-                      style={{ display: !isLoggedIn && "none" }}
-                      onClick={(event) => ClickAddToCart(event, obj)}
-                    >
-                      <i className="fa-solid fa-cart-plus"></i>
-                    </div>
-                  </div>
-                  <div className="productDetails" key={i}>
-                    <p className="productName--model">
-                      <span className="productName">{obj.Company}</span>
-                      <span className="model"> {obj.Model} </span>
-                    </p>
-                    <p className="price">
-                      Price- ₹<span> {obj.Productprice}</span>
-                    </p>
-                    <p className="color--and--type">
-                      <span className="color">{obj.ProductColor} </span>
-                      <span className="color">| {obj.Heaadphonetype}</span>
-                    </p>
-                    <p className="HeadLine">{obj.Productheadline}</p>
-                    <button className="Details">Details</button>
+              <div
+                className="Asingle--Product--div"
+                key={obj._id}
+                storekey={obj._id}
+                onClick={() => clickAproduct(obj._id)}
+              >
+                <div className="blueColor" key={obj._id}>
+                  <img src={obj.image} alt="productImg" />
+                  <div
+                    className="cartDIV"
+                    style={{ display: !isLoggedIn && "none" }}
+                    onClick={(event) => ClickAddToCart(event, obj)}
+                  >
+                    <i className="fa-solid fa-cart-plus"></i>
                   </div>
                 </div>
-              </>
+                <div className="productDetails" key={i}>
+                  <p className="productName--model">
+                    <span className="productName">{obj.name}</span>
+                  </p>
+                  <p className="price">
+                    Price- ₹<span> {obj.price}</span>
+                  </p>
+                  <p className="color--and--type"></p>
+                  <p>description: {obj.description}</p>
+                  <button className="Details">Details</button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -384,5 +412,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

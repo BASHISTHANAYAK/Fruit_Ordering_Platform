@@ -10,11 +10,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
+import { setUser } from "../../ReduxPersist/actions";
+import { useDispatch } from "react-redux";
 
 const BuyerLogin = () => {
   // clearing session storage
-  sessionStorage.removeItem("jwttoken");
-  sessionStorage.removeItem("directBuy");
+  // sessionStorage.removeItem("jwttoken");
+  // sessionStorage.removeItem("directBuy");
+  const dispatch = useDispatch();
+
 
   const Navigate = useNavigate();
   const [UserDetails, setUserdetails] = useState({
@@ -31,7 +35,7 @@ const BuyerLogin = () => {
       const result = await submitForm(UserDetails);
       console.log("result from function to ui:- ", result);
       if (result.status === 200) {
-        await toast.success(result.data.message, {
+        toast.success(result.data.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -48,9 +52,16 @@ const BuyerLogin = () => {
           JSON.stringify(result.data.jwttoken)
         );
 
-        // setTimeout(() => {
-        //   Navigate("/");
-        // }, 2000);
+        dispatch(
+          setUser({
+            name: result.data.detail.name,
+            role: result.data.detail.role,
+          })
+        );
+
+        setTimeout(() => {
+          Navigate("/");
+        }, 2000);
       } else {
         toast.error(result.response.data.message, {
           position: "top-right",

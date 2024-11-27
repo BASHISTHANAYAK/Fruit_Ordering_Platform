@@ -8,9 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../ReduxPersist/actions";
 
 const BuyerSignup = () => {
-  sessionStorage.removeItem("directBuy");
+  // sessionStorage.removeItem("directBuy");
+  const dispatch = useDispatch();
 
   const Navigate = useNavigate();
   const [UserDetails, setUserdetails] = useState({
@@ -43,9 +46,16 @@ const BuyerSignup = () => {
           "jwttoken",
           JSON.stringify(result.data.jwttoken)
         );
-        // setTimeout(() => {
-        //   Navigate("/home");
-        // }, 2000);
+        dispatch(
+          setUser({
+            name: result.data.detail.name,
+            role: result.data.detail.role,
+          })
+        );
+
+        setTimeout(() => {
+          Navigate("/");
+        }, 2000);
       } else {
         toast.error(result.data.message, {
           position: "top-right",

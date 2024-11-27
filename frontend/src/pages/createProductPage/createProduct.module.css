@@ -1,0 +1,171 @@
+Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.signUp_Container {
+  background-color: #ebe5e5;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: inherit;
+}
+center h1 {
+  /* border: 2px solid; */
+  padding: 0;
+  margin: 0;
+  padding: 1%;
+}
+
+.signup--welcome--mobile {
+  display: none;
+}
+.singup--form {
+  border: 1px solid transparent;
+  margin: 0;
+  padding: 5px 0px;
+}
+.singup--container {
+  border: 1px solid #9f9c9c;
+  border-radius: 5px;
+  width: 25vw;
+  /* height: 60vh; */
+  margin: auto;
+  padding: 1% 2% 0% 2%;
+  background-color: #cde228;
+}
+.Create--Account {
+  font-weight: 400;
+  margin: 1% 0;
+}
+.Create--Account > span {
+  display: none;
+}
+.singup--container > label {
+  font-weight: 500;
+  font-size: 12px;
+}
+.privacy--notice {
+  font-weight: 400;
+  font-size: 10px;
+}
+.signup--button {
+  background-color: #2e0052;
+  width: 100%;
+  color: white;
+  margin: 1% auto;
+  padding: 9px 0px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.singup--form input {
+  width: 100%;
+  margin: 3px 0;
+  /* padding: 5px 20px; */
+  height: 5vh;
+  display: inline-block;
+  border: 1px solid #b6b6b6;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.signup--button:hover {
+  opacity: 0.7;
+}
+.enrolling--message {
+  font-size: 11px;
+  font-weight: 500;
+  margin: 2px 0;
+}
+.Already--have--an--account--div {
+  border: 1px dotted transparent;
+  margin-top: 2vh;
+}
+.Already--have--an--account--div > h4 {
+  margin: 0;
+}
+
+/* nav and footer and logo image css */
+.signup--center > img {
+  width: auto;
+  height: 38px;
+  margin: 1% 0 0.5% auto;
+}
+.music--Logo--ForMobile {
+  display: none;
+}
+.mobilenav {
+  width: 100%;
+  height: 50px;
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .singup--container {
+    width: 40vw;
+    padding: 1vw;
+  }
+}
+@media screen and (max-width: 500px) {
+  .mobilenav {
+    width: 100%;
+    height: 50px;
+    display: inline;
+  }
+  .music--Logo--ForMobile {
+    display: inline;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+  .signup--center > img {
+    display: none;
+  }
+  .signup--welcome--mobile {
+    display: block;
+    font-weight: 400;
+    font-size: 28px;
+    margin: 0px 0px 0px 30px;
+    color: #2e0052;
+  }
+  .Create--Account {
+    font-weight: 500;
+  }
+  .Create--Account > span {
+    display: inline;
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .singup--form {
+    margin-top: 1vh;
+    padding: 0;
+  }
+  .singup--container {
+    width: 79vw;
+    padding: 1vw;
+  }
+  .enrolling--message {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .singup--container {
+    width: 90vw;
+    padding: 1vw;
+  }
+  .Already--have--an--account--div > h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+  }
+  .signup--welcome--mobile {
+    margin: 0% 0% 0% 2%;
+  }
+}
+/* ************************************************************************ */

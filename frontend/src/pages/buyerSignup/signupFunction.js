@@ -1,5 +1,5 @@
-import axios from "axios";
 import serverUrl from "../../config.js";
+import api from "../../Axios_Interceptor/api.js";
 
 function enterDetails(e, setUserdetails) {
   const name = e.target.name;
@@ -10,11 +10,11 @@ function enterDetails(e, setUserdetails) {
 }
 
 // form submit
-async function submitForm( UserDetails) {
+async function submitForm(UserDetails) {
   try {
     UserDetails.password = UserDetails.password.trim();
 
-    const userDetailsPosted = await axios.post(
+    const userDetailsPosted = await api.post(
       `${serverUrl}/buyerSignup`,
       UserDetails
     );

@@ -11,27 +11,47 @@ import SearchNav from "../components/Search In Navbar/searchNav.js";
 import PageNotFound from "../pages/PageNotFound/PageNotFound.jsx";
 import AdminORBuyer from "../pages/Log-Reg-For_BuyerANDAdmin/Admin_OR_Buyer.jsx";
 import AdminSignup from "../pages/adminSignup/signupUi.js";
-import AdminLogin from "../pages/adminLogin/loginUi.js";
 import BuyerSignup from "../pages/buyerSignup/signupUi.js";
 import BuyerLogin from "../pages/buyerLogin/loginUi.js";
+import CreateProduct from "../pages/createProductPage/CreateProduct.jsx";
+import AdminDashBoard from "../pages/AdminDashboard/AdminDashBoard.jsx";
+import AdminLogin from "../pages/adminLogin/AdminLoginUi.js";
+import { AdminProtectedRoute } from "./ProtectedRouteComponent.jsx";
 
 const pageRoute = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} /> */}
         <Route path="/productDetail/:_id" element={<ProductDetail />} />
         <Route path="/viewCart" element={<ViewCart />} />
         <Route path="/checkOutPage" element={<CheckOut />} />
         <Route path="/successfulPage" element={<Successful />} />
         <Route path="/SearchNav" element={<SearchNav />} />
+
+        {/* ------------------------------------------------------------- */}
         <Route path="/selectAccountType" element={<AdminORBuyer />} />
         <Route path="/adminSignup" element={<AdminSignup />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/buyerSignup" element={<BuyerSignup />} />
         <Route path="/buyerLogin" element={<BuyerLogin />} />
+        <Route
+          path="/createProduct"
+          element={
+            <AdminProtectedRoute>
+              <CreateProduct />
+            </AdminProtectedRoute>
+          }
+        />
+        {/* Protected Route */}
+        <Route
+          path="/adminDashboard"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashBoard />
+            </AdminProtectedRoute>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
@@ -39,3 +59,8 @@ const pageRoute = () => {
 };
 
 export default pageRoute;
+
+// {/* <AdminProtectedRoute
+//   path="/adminDashboard"
+//   component={<AdminDashBoard />}
+// /> */}

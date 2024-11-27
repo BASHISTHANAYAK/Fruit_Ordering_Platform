@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { enterDetails, submitForm } from "./loginFunction";
-import MusicLogo from "../../assets/images/musicCartLogo.png";
-import footerWEB from "../../assets/images/footerWEB.png";
-import mobilenav from "../../assets/images/mobileLoginNav.png";
-import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
+// import MusicLogo from "../../assets/images/musicCartLogo.png";
+// import footerWEB from "../../assets/images/footerWEB.png";
+// import mobilenav from "../../assets/images/mobileLoginNav.png";
+// import MusicLogoMobile from "../../assets/images/musicLogoMobile.png";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import VegefoodsLogo from "../../components/Vegefoods_Logo/VegefoodsLogo";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../ReduxPersist/actions";
 
 const AdminLogin = () => {
   // clearing session storage
   sessionStorage.removeItem("jwttoken");
   sessionStorage.removeItem("directBuy");
+
+  const dispatch = useDispatch();
 
   const Navigate = useNavigate();
   const [UserDetails, setUserdetails] = useState({
@@ -31,7 +35,7 @@ const AdminLogin = () => {
       const result = await submitForm(UserDetails);
       console.log("result from function to ui:- ", result);
       if (result.status === 200) {
-        await toast.success(result.data.message, {
+        toast.success(result.data?.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
@@ -48,20 +52,32 @@ const AdminLogin = () => {
           JSON.stringify(result.data.jwttoken)
         );
 
-        // setTimeout(() => {
-        //   Navigate("/");
-        // }, 2000);
+        dispatch(
+          setUser({
+            name: result.data.detail.name,
+            role: result.data.detail.role,
+          })
+        );
+
+        setTimeout(() => {
+          Navigate("/adminDashboard");
+        }, 2000);
       } else {
-        toast.error(result.response.data.message, {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error(
+          result?.response?.data?.message
+            ? result?.response?.data.message
+            : result.message,
+          {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
       }
     } catch (error) {
       console.log("error", error);
