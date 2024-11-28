@@ -128,9 +128,6 @@ body {
   margin-top: 2%;
 }
 
-/* LineView--Activate css END============================>*/
-
-/* filter and sorting  css start *****************************/
 /* filters abd sortings ection ***/
 .filtersANDSortings {
   /*   border: 1px solid transparent; */
@@ -153,55 +150,6 @@ body {
   padding: 2px;
   gap: 10px;
   order: 0;
-}
-/* gris and list icons container */
-/*it referencing to grid--line--icons div*/
-.icon--and--filters--div > div:first-child {
-  /*   border: 1px solid transparent; */
-  width: auto;
-  height: 80%;
-  display: flex;
-  justify-content: space-around;
-}
-.grid--line--icons > img {
-  /*   border: 1px solid transparent; */
-  height: 100%;
-}
-/*it referencing to Four--filters--div */
-.icon--and--filters--div > div:last-child {
-  /*   border: 1px solid transparent; */
-  width: auto;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.Four--filters--div > select {
-  display: block;
-  height: 80%;
-  border-radius: 20px;
-  text-align: center;
-  background-color: rgb(217, 217, 217);
-  font-weight: bold;
-  border-color: transparent;
-  margin-left: 10px;
-}
-/* sorting div */
-.only-sorting--div {
-  /*   border: 1px dotted transparent; */
-  width: auto;
-  height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  order: 1;
-}
-.only-sorting--div > select {
-  border: 2px solid rgb(236, 236, 236);
-  height: 80%;
-  border-radius: 20px;
-  width: auto;
-  text-align: center;
 }
 
 /* product section  */
@@ -241,10 +189,13 @@ body {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   padding: 10px;
   padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .Asingle--Product--div > .blueColor {
-  /*   border: 1px solid transparent; */
+  /* border: 1px solid red; */
   width: 100%;
   /* height: 210px; */
   background-color: rgb(212, 229, 255);
@@ -253,20 +204,7 @@ body {
   justify-content: center;
   position: relative;
 }
-.cartDIV {
-  /*   border: 1px solid transparent; */
-  width: 22px;
-  height: 22px;
-  background-color: white;
-  position: absolute;
-  bottom: 3px;
-  right: 3px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px;
-}
+
 .fa-cart-plus {
   /*   border: 1px solid transparent; */
   color: green;
@@ -277,6 +215,7 @@ body {
 }
 .Asingle--Product--div > .blueColor > img {
   /* border: 1px solid black; */
+  height: 150px;
   width: 66%;
   object-fit: contain;
 }
@@ -304,7 +243,7 @@ body {
   border: 2px solid;
   padding: 10px 0;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 9%;
   cursor: pointer;
 }
 .Add_to_cart:hover,
