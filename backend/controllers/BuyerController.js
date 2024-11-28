@@ -1,10 +1,11 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { BuyerModel } from "../model/BuyerSchema.js";
+import { OrderModel } from "../model/OrderSchema.js";
 
 // +++++++++++++++++++++++++++++++********* Admin signUp  *********==================================================
 
-// signUp
+// signUp -------------------------------------------------------------
 const buyerSignupRoute = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -74,7 +75,7 @@ const buyerSignupRoute = async (req, res) => {
 };
 
 // +++++++++++++++++++++++++++++++*********   login  **********==================================================
-// login
+// login -------------------------------------------------------------
 const buyerLoginRoute = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -163,7 +164,7 @@ const addToCart = async (req, res) => {
   }
 };
 
-// // Get all products
+// // Get all products -------------------------------------------------------------
 const getcartProducts = async (req, res) => {
   try {
     const { buyerId } = req.params; // ID of the buyer
@@ -181,4 +182,84 @@ const getcartProducts = async (req, res) => {
   }
 };
 
-export { buyerSignupRoute, buyerLoginRoute, addToCart, getcartProducts };
+// place a order -------------------------------------------------------------
+
+// const Order = require('../model/OrderSchema'); // Path to your Order model
+// const Buyer = require('./models/Buyer'); // Path to your Buyer model
+const placeOrder = async (req, res) => {
+  const {
+    buyerId,
+    cartItems,
+    totalPrice,
+    deliveryName,
+    contactInfo,
+    street,
+    city,
+    state,
+    postalcode, // Note the casing to match incoming data
+    country,
+  } = req.body;
+
+  try {
+    // Validate cart items
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
+    }
+
+    // Find buyer
+    const buyer = await BuyerModel.findById(buyerId);
+    if (!buyer) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+
+    // Construct delivery address as an object
+    const deliveryAddress = {
+      street,
+      city,
+      state,
+      postalCode: postalcode, // Match schema naming
+      country,
+    };
+
+    // Create a new order
+    const newOrder = new OrderModel({
+      buyer: buyerId,
+      products: cartItems.map((item) => ({
+        product: item.productId,
+        quantity: item.quantity,
+      })),
+      totalPrice,
+      deliveryName,
+      contactInfo,
+      deliveryAddress, // Use the object format
+      status: "Pending", // Explicitly set status (optional, as it defaults to "Pending")
+    });
+
+    // Save the order to the database
+    const savedOrder = await newOrder.save();
+
+    // Update buyer's orders and clear cart
+    buyer.orders.push(savedOrder._id);
+    buyer.cart = [];
+    await buyer.save();
+
+    // Respond with the new order details
+    res.status(200).json({
+      message: "Order placed successfully",
+      order: savedOrder,
+    });
+  } catch (error) {
+    console.error("Error placing order:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to place order", error: error.message });
+  }
+};
+
+export {
+  buyerSignupRoute,
+  buyerLoginRoute,
+  addToCart,
+  getcartProducts,
+  placeOrder,
+};

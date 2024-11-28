@@ -20,6 +20,7 @@ import {
   buyerLoginRoute,
   buyerSignupRoute,
   getcartProducts,
+  placeOrder,
 } from "../controllers/BuyerController.js";
 import {
   createProduct,
@@ -72,6 +73,8 @@ router.post("/buyerSignup", buyerSignupRoute);
 router.post("/buyerLogin", buyerLoginRoute);
 // // to add productsID in usercart
 router.post("/addToCart/:buyerId", userAuth, addToCart);
+//placeOrder
+router.post("/placeOrder", userAuth, placeOrder);
 
 //----------------------------------------
 //getcartProducts

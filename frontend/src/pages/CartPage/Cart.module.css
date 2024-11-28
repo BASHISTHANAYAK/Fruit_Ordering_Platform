@@ -26,6 +26,7 @@
   margin: 0;
   margin-top: 5px;
   padding: 0;
+  font-size: 16px;
 }
 
 /* summary */
@@ -42,6 +43,6 @@
   color: white;
   cursor: pointer;
 }
-.PlaceOrder:hover{
-    transform: scale(0.98);
+.PlaceOrder:hover {
+  transform: scale(0.98);
 }
