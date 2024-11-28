@@ -20,6 +20,7 @@ import {
   BuyerProtectedRoute,
 } from "./ProtectedRouteComponent.jsx";
 import Cart from "../pages/CartPage/Cart.jsx";
+import EditProduct from "../pages/EditProductPage/EditProduct.jsx";
 // import EditPage from "../pages/EditAdmin_ProductPage/EditPage.jsx";
 
 const pageRoute = () => {
@@ -73,6 +74,16 @@ const pageRoute = () => {
             </AdminProtectedRoute>
           }
         /> */}
+
+        {/* EditProduct */}
+        <Route
+          path="/editProduct/:productId"
+          element={
+            <AdminProtectedRoute>
+              <EditProduct />
+            </AdminProtectedRoute>
+          }
+        />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

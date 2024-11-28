@@ -72,23 +72,23 @@ export const getProductsByAdmin = async (req, res) => {
   }
 };
 
-// Get a single product by ID
-// export const getProductById = async (req, res) => {
-//   const { id } = req.params;
+// Get a single product by ID /getProductById/${productId}
+export const getProductById = async (req, res) => {
+  const { productId } = req.params;
 
-//   try {
-//     const product = await ProductModel.findById(id).populate(
-//       "admin",
-//       "name email"
-//     );
-//     if (!product) {
-//       return res.status(404).json({ error: "Product not found" });
-//     }
-//     res.status(200).json(product);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+  try {
+    const product = await ProductModel.findById(productId).populate(
+      "admin",
+      "name email"
+    );
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // // Update a product by ID
 // export const updateProduct = async (req, res) => {
@@ -140,4 +140,43 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+// update a product
+
+export const editProduct = async (req, res) => {
+  const { productId } = req.params;
+  const { name, description, price, image, category } = req.body;
+
+  try {
+    // Find the product by ID
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Ensure the product belongs to the admin
+    if (product.admin.toString() !== req.body.adminId) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to edit this product" });
+    }
+
+    // Update product fields
+    product.name = name || product.name;
+    product.description = description || product.description;
+    product.price = price || product.price;
+    product.image = image || product.image;
+    product.category = category || product.category;
+
+    // Save the updated product
+    await product.save();
+
+    res.status(200).json({ message: "Product updated successfully", product });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+  res.status(200).json({ message: "Product updated successfully", product });
 };

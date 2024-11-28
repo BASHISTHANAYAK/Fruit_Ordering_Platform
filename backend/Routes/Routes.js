@@ -26,7 +26,9 @@ import {
 import {
   createProduct,
   deleteProduct,
+  editProduct,
   getAllProducts,
+  getProductById,
   getProductsByAdmin,
 } from "../controllers/ProductsController.js";
 import adminAuth from "../middlewares/adminAuth.js";
@@ -34,31 +36,6 @@ import userAuth from "../middlewares/userAuth.js";
 import TestingROute from "../controllers/TestingROute.js";
 const router = express.Router();
 
-// router.get("/", test);
-
-// router.post("/login", loginRoute);
-
-// router.post("/signup", signupRoute);
-
-// // to get all products data
-// router.get("/getProduct", filterProduct);
-
-// // to add productsID in usercart
-// router.post("/addToCART/:userID", addToCart);
-
-// checking if user logedin
-// router.post("/isAuthenticated", isAuthenticated);
-// // get product by id
-// router.get("/productID/:_id", productById);
-
-// // getting user by a user_id
-// router.get("/UserDetails/:_id", getUserDetails);
-
-// // geting user by id and updating its cart item Quentity
-// router.patch("/UpdateQuantity/:_id", updateQuantity);
-
-// // removing all items in user cart
-// router.patch("/emptyCart/:_id", emptyCart);
 
 // --------------------------------------
 //TestingROute
@@ -91,5 +68,11 @@ router.get("/getcartProducts/:buyerId", userAuth, getcartProducts);
 ///getOrders
 router.get("/getOrders/:_id", userAuth, fetchOrders);
 router.get("/getProducts/:adminId", adminAuth, getProductsByAdmin);
+//getProductById
+router.get("/getProductById/:productId", adminAuth, getProductById);
+//editProduct
+router.get("/editProduct/:productId", adminAuth, editProduct);
+
+
 
 export default router;

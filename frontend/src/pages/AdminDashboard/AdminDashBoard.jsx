@@ -73,7 +73,7 @@ const AdminDashBoard = () => {
                 <p>Category: {product.category}</p>
                 <p>Created By: {product.admin.name}</p>
 
-                <button>Edit</button>
+                <button onClick={() => navigate(`/editProduct/${product._id}`)}>Edit</button>
                 <button onClick={() => handleDelete(product._id)}>
                   Delete
                 </button>
