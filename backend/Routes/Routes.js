@@ -59,7 +59,7 @@ const router = express.Router();
 
 // --------------------------------------
 //TestingROute
-router.get("/TestingROute",TestingROute)
+router.get("/",TestingROute)
 
 //getAllProducts
 router.get("/getAllProducts", getAllProducts);
