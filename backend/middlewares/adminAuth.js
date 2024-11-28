@@ -20,7 +20,7 @@ const adminAuth = async (req, res, next) => {
     // Verify the token
     const decoded = jwt.verify(cleanedToken, process.env.ADMIN_JWT_SECRET_KEY);
 
-    console.log("decoded:- ", decoded);
+    // console.log("decoded:- ", decoded);
 
     if (decoded) {
       // Attach the user information to the req object

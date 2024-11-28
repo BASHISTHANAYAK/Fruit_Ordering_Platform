@@ -19,6 +19,7 @@ import {
   addToCart,
   buyerLoginRoute,
   buyerSignupRoute,
+  fetchOrders,
   getcartProducts,
   placeOrder,
 } from "../controllers/BuyerController.js";
@@ -82,5 +83,8 @@ router.post("/placeOrder", userAuth, placeOrder);
 //----------------------------------------
 //getcartProducts
 router.get("/getcartProducts/:buyerId", userAuth, getcartProducts);
+///getOrders
+router.get("/getOrders/:_id", userAuth, fetchOrders);
+
 
 export default router;

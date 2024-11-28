@@ -21,7 +21,7 @@ const userAuth = async (req, res, next) => {
     // Verify the token
     const decoded = jwt.verify(cleanedToken, process.env.USER_JWT_SECRET_KEY);
 
-    console.log("decoded:- ", decoded);
+    // console.log("decoded:- ", decoded);
 
     if (decoded) {
       console.log("Token is successfully decoded");

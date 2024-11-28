@@ -1,103 +1,3 @@
-// import { useEffect, useState } from "react";
-// import NavWithoutLogin from "../../components/NavBar/navbar";
-// import api from "../../Axios_Interceptor/api.js";
-// import { useSelector } from "react-redux";
-// import cartCss from "./Cart.module.css";
-// const Cart = () => {
-//   const [cartData, setCartData] = useState([]);
-//   const [totalPrice, setTotalPrice] = useState(0);
-//   const { _id, name } = useSelector((state) => state);
-
-//   ///getcartProducts
-//   useEffect(() => {
-//     async function getCart() {
-//       try {
-//         let res = await api.get(`/getcartProducts/${_id}`);
-//         console.log("getCart-", res.data.cart);
-//         setCartData(res.data.cart);
-//         let total = res.data.cart.reduce(
-//           (acc, curr) => acc + curr.product.price,
-//           0
-//         );
-//         setTotalPrice(total);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//     getCart();
-//   }, []);
-
-//   //placeOrder
-//   function placeOrder(_id, cartData, totalPrice) {}
-
-//   return (
-//     <div>
-//       <NavWithoutLogin />
-//       <h1>Cart</h1>
-//       {/* Cart summary.. */}
-//       {cartData.length > 0 && (
-//         <section className={cartCss.summary}>
-//           <h2>Card summary</h2>
-//           <p>Number of products: {cartData.length} </p>
-//           <p>
-//             Total price:{totalPrice}
-//             {}
-//           </p>
-//           <p>discount: 10%</p>
-//           <h3>
-//             Total:
-//             {totalPrice - Math.ceil(totalPrice / 10)}
-//           </h3>
-//           {/* address */}
-//           <form action=""></form>
-//           <button className={cartCss.PlaceOrder} onClick={placeOrder}>
-//             Place order
-//           </button>
-//         </section>
-//       )}
-
-//       <section className={cartCss.allCart_Products_container}>
-//         {cartData.length > 0 ? (
-//           cartData.map((obj) => (
-//             <div key={obj._id}>
-//               <img src={obj.product.image} alt="img" />
-//               <h2>name: {obj.product.name}</h2>
-//               <h2>price: {obj.product.price}</h2>
-//               <h2>quantity: {obj.quantity}</h2>
-//             </div>
-//           ))
-//         ) : (
-//           <p>Empty Card.</p>
-//         )}
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default Cart;
-// ----------------------------------
-// placeOrder - route
-
-// {
-//   buyerId,
-//   cartItems,
-//   totalPrice,
-//   deliveryName,
-//   contactInfo,
-//   deliveryAddress,
-// }
-
-// New fields for delivery details
-// deliveryName: { type: String, required: true }, // Name of the person receiving the delivery
-// contactInfo: { type: String, required: true }, // Contact info (e.g., phone number)
-// deliveryAddress: {
-//   street: { type: String, required: true },
-//   city: { type: String, required: true },
-//   state: { type: String, required: true },
-//   postalCode: { type: String, required: true },
-//   country: { type: String, required: true },
-// ---------------------------------------------------------------
-
 import { useEffect, useState } from "react";
 import NavWithoutLogin from "../../components/NavBar/navbar";
 import api from "../../Axios_Interceptor/api.js";
@@ -116,6 +16,8 @@ const Cart = () => {
     postalcode: "",
     country: "",
   });
+  const [orders, setOrders] = useState([]);
+
   const { _id } = useSelector((state) => state);
 
   // Fetch cart products
@@ -194,13 +96,58 @@ const Cart = () => {
     }
   }
 
+  //fetchOrders
+  async function fetchOrders() {
+    try {
+      const res = await api.get(`/getOrders/${_id}`);
+      console.log("Fetched Orders:", res.data.orders);
+      setOrders(res.data.orders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      alert("Failed to fetch orders. Please try again.");
+    }
+  }
+
   return (
     <div>
       <NavWithoutLogin />
-      <h1>Cart</h1>
+      <section className={cartCss.heading}>
+        <h1>Cart</h1>
+        <div>
+          <button onClick={fetchOrders}>Check Orders</button>
+        </div>
+      </section>
+      {/* order history  */}
+      {orders.length > 0 && (
+        <section className={cartCss.ordersSection}>
+          <h2>Order History</h2>
+          {orders.map((order) => (
+            <div key={order._id} className={cartCss.singleOrder}>
+              <h3>Order ID: {order._id}</h3>
+              <p>Status: {order.status}</p>
+              <p>Total Price: ₹{order.totalPrice}</p>
+              <p>
+                Delivery Address: {order.deliveryAddress.street},{" "}
+                {order.deliveryAddress.city}, {order.deliveryAddress.state},{" "}
+                {order.deliveryAddress.postalCode},{" "}
+                {order.deliveryAddress.country}
+              </p>
+              <h4>Products:</h4>
+              {order.products.map((item) => (
+                <div key={item.product._id} className={cartCss.singleProduct}>
+                  <img src={item.product.image} alt={item.product.name} />
+                  <p>Name: {item.product.name}</p>
+                  <p>Price: ₹{item.product.price}</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </section>
+      )}
 
       {/* Cart summary */}
-      {cartData.length > 0 && (
+      {cartData.length > 0 && orders.length === 0 && (
         <section className={cartCss.summary}>
           <h2>Cart Summary</h2>
           <p>Number of products: {cartData.length}</p>
@@ -307,18 +254,16 @@ const Cart = () => {
 
       {/* Cart products */}
       <section className={cartCss.allCart_Products_container}>
-        {cartData.length > 0 ? (
-          cartData.map((obj) => (
-            <div key={obj._id} className={cartCss.singleProduct}>
-              <img src={obj.product.image} alt="img" />
-              <h2>Name: {obj.product.name}</h2>
-              <h2>Price: ₹{obj.product.price}</h2>
-              <h2>Quantity: {obj.quantity}</h2>
-            </div>
-          ))
-        ) : (
-          <p>Cart is empty.</p>
-        )}
+        {cartData.length > 0 && orders.length === 0
+          ? cartData.map((obj) => (
+              <div key={obj._id} className={cartCss.singleProduct}>
+                <img src={obj.product.image} alt="img" />
+                <h2>Name: {obj.product.name}</h2>
+                <h2>Price: ₹{obj.product.price}</h2>
+                <h2>Quantity: {obj.quantity}</h2>
+              </div>
+            ))
+          : !cartData.length > 0 && <p>Cart is empty.</p>}
       </section>
     </div>
   );
