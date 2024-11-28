@@ -28,6 +28,7 @@ import {
 } from "../controllers/ProductsController.js";
 import adminAuth from "../middlewares/adminAuth.js";
 import userAuth from "../middlewares/userAuth.js";
+import TestingROute from "../controllers/TestingROute.js";
 const router = express.Router();
 
 // router.get("/", test);
@@ -57,6 +58,8 @@ const router = express.Router();
 // router.patch("/emptyCart/:_id", emptyCart);
 
 // --------------------------------------
+//TestingROute
+router.get("/TestingROute",TestingROute)
 
 //getAllProducts
 router.get("/getAllProducts", getAllProducts);
