@@ -25,7 +25,9 @@ import {
 } from "../controllers/BuyerController.js";
 import {
   createProduct,
+  deleteProduct,
   getAllProducts,
+  getProductsByAdmin,
 } from "../controllers/ProductsController.js";
 import adminAuth from "../middlewares/adminAuth.js";
 import userAuth from "../middlewares/userAuth.js";
@@ -60,7 +62,7 @@ const router = express.Router();
 
 // --------------------------------------
 //TestingROute
-router.get("/",TestingROute)
+router.get("/", TestingROute);
 
 //getAllProducts
 router.get("/getAllProducts", getAllProducts);
@@ -70,6 +72,9 @@ router.post("/adminSignup", AdminSignupRoute);
 router.post("/adminLogin", adminLoginRoute);
 //products
 router.post("/createProduct", adminAuth, createProduct);
+///deleteProduct/${productId}
+router.delete("/deleteProduct/:productId", adminAuth, deleteProduct);
+
 // --------------------------------------
 //Buyer routes
 router.post("/buyerSignup", buyerSignupRoute);
@@ -85,6 +90,6 @@ router.post("/placeOrder", userAuth, placeOrder);
 router.get("/getcartProducts/:buyerId", userAuth, getcartProducts);
 ///getOrders
 router.get("/getOrders/:_id", userAuth, fetchOrders);
-
+router.get("/getProducts/:adminId", adminAuth, getProductsByAdmin);
 
 export default router;

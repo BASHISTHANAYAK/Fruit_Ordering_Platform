@@ -125,4 +125,19 @@ const adminLoginRoute = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export { AdminSignupRoute, adminLoginRoute };

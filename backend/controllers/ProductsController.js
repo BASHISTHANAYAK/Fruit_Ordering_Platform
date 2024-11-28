@@ -49,6 +49,29 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+// Get products by admin
+export const getProductsByAdmin = async (req, res) => {
+  const { adminId } = req.params; // Fetch adminId from URL params
+
+  try {
+    // Find products created by a specific admin
+    const products = await ProductModel.find({ admin: adminId }).populate(
+      "admin",
+      "name email"
+    );
+
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: "No products found ." });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Products retrieved successfully", products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Get a single product by ID
 // export const getProductById = async (req, res) => {
 //   const { id } = req.params;
@@ -87,24 +110,34 @@ export const getAllProducts = async (req, res) => {
 //   }
 // };
 
-// // Delete a product by ID
-// export const deleteProduct = async (req, res) => {
-//   const { id } = req.params;
+export const deleteProduct = async (req, res) => {
+  const { productId } = req.params;
+  console.log("productId-", productId);
 
-//   try {
-//     const product = await ProductModel.findByIdAndDelete(id);
+  try {
+    // Find the product by ID and delete it
+    const product = await ProductModel.findByIdAndDelete(productId);
 
-//     if (!product) {
-//       return res.status(404).json({ error: "Product not found" });
-//     }
+    // Check if the product exists
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
 
-//     // Remove the product from the admin's product list
-//     await AdminModel.findByIdAndUpdate(product.admin, {
-//       $pull: { products: product._id },
-//     });
+    // Check if the admin exists and ensure product's admin reference is valid
+    const admin = await AdminModel.findById(product.admin);
+    if (!admin) {
+      return res
+        .status(404)
+        .json({ error: "Admin not found for this product" });
+    }
 
-//     res.status(200).json({ message: "Product deleted successfully" });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+    // Remove the product from the admin's product list
+    await AdminModel.findByIdAndUpdate(product.admin, {
+      $pull: { products: product._id },
+    });
+
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

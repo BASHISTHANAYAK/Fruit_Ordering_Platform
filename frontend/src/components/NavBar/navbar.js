@@ -24,7 +24,10 @@ const NavWithoutLogin = () => {
       <div className="navInfo">
         <div className="mobileNumber Vegefoods_logo">
           {/* <i className="fa-solid fa-phone-volume"> </i> */}
-          <span onClick={() => navigate("/")} style={{cursor:"pointer"}}> Vegefoods</span>
+          <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+            {" "}
+            Vegefoods
+          </span>
         </div>
         <div className="offAndShopNow">
           Get 50% off on selected items | shop now
@@ -50,9 +53,15 @@ const NavWithoutLogin = () => {
           <span>
             {Logout && (
               <>
-                <Link className="login--SignButton" to="/cart">
-                  Cart
-                </Link>{" "}
+                {red.role === "Buyer" ? (
+                  <Link className="login--SignButton" to="/cart">
+                    Cart
+                  </Link>
+                ) : (
+                  <Link className="login--SignButton" to="/adminDashboard">
+                    Dashboard
+                  </Link>
+                )}
                 | &nbsp;
                 <Link
                   className="login--SignButton"

@@ -1,0 +1,24 @@
+.productsDIV {
+  /* border: 2px solid black;  */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 3%;
+}
+
+.aProductCard {
+  border: 2px solid rgb(210, 234, 201);
+  margin-top: 20px;
+  width: 300px;
+  text-align: center;
+  /* margin-left: 30px; */
+}
+.aProductCard > img {
+  /* border: 2px solid black; */
+  width: 150px;
+}
+.aProductCard button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+}
