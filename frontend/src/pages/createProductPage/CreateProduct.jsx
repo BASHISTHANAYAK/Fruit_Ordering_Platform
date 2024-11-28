@@ -32,7 +32,7 @@ const CreateProduct = () => {
       console.log("result from function to ui:- ", result);
       if (result.status === 201) {
         console.log("result in if block:- ", result);
-        toast.success("Admin has been created", {
+        toast.success("Product added.", {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: true,
