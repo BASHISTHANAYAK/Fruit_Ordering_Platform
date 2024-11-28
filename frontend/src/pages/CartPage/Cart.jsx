@@ -108,17 +108,6 @@ const Cart = () => {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div>
       <NavWithoutLogin />
@@ -134,22 +123,22 @@ const Cart = () => {
           <h2>Order History</h2>
           {orders.map((order) => (
             <div key={order._id} className={cartCss.singleOrder}>
-              <h3>Order ID: {order._id}</h3>
-              <p>Status: {order.status}</p>
-              <p>Total Price: ₹{order.totalPrice}</p>
+              <h3>Order ID: {order?._id}</h3>
+              <p>Status: {order?.status}</p>
+              <p>Total Price: ₹{order?.totalPrice}</p>
               <p>
                 Delivery Address: {order.deliveryAddress.street},{" "}
-                {order.deliveryAddress.city}, {order.deliveryAddress.state},{" "}
-                {order.deliveryAddress.postalCode},{" "}
-                {order.deliveryAddress.country}
+                {order?.deliveryAddress?.city}, {order?.deliveryAddress?.state},{" "}
+                {order?.deliveryAddress?.postalCode},{" "}
+                {order?.deliveryAddress?.country}
               </p>
               <h4>Products:</h4>
               {order.products.map((item) => (
-                <div key={item.product._id} className={cartCss.singleProduct}>
-                  <img src={item.product.image} alt={item.product.name} />
-                  <p>Name: {item.product.name}</p>
-                  <p>Price: ₹{item.product.price}</p>
-                  <p>Quantity: {item.quantity}</p>
+                <div key={item?.product?._id} className={cartCss.singleProduct}>
+                  <img src={item?.product?.image} alt={item?.product?.name} />
+                  <p>Name: {item?.product?.name}</p>
+                  <p>Price: ₹{item?.product?.price}</p>
+                  <p>Quantity: {item?.quantity}</p>
                 </div>
               ))}
             </div>
@@ -268,10 +257,10 @@ const Cart = () => {
         {cartData.length > 0 && orders.length === 0
           ? cartData.map((obj) => (
               <div key={obj._id} className={cartCss.singleProduct}>
-                <img src={obj.product.image} alt="img" />
-                <h2>Name: {obj.product.name}</h2>
-                <h2>Price: ₹{obj.product.price}</h2>
-                <h2>Quantity: {obj.quantity}</h2>
+                <img src={obj?.product?.image} alt="img" />
+                <h2>Name: {obj?.product?.name}</h2>
+                <h2>Price: ₹{obj?.product?.price}</h2>
+                <h2>Quantity: {obj?.quantity}</h2>
               </div>
             ))
           : !cartData.length > 0 && <p>Cart is empty.</p>}

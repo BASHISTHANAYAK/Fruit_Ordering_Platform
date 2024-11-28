@@ -27,7 +27,11 @@ const AdminDashBoard = () => {
       }
     } catch (error) {
       console.error("Error fetching products:", error);
-      alert("Failed to fetch products. Please try again.");
+      if (error.response.data.message === "No products found .") {
+        alert("No products found");
+      } else {
+        alert("Failed to fetch products. Please try again.");
+      }
     }
   }
 
@@ -73,7 +77,9 @@ const AdminDashBoard = () => {
                 <p>Category: {product.category}</p>
                 <p>Created By: {product.admin.name}</p>
 
-                <button onClick={() => navigate(`/editProduct/${product._id}`)}>Edit</button>
+                <button onClick={() => navigate(`/editProduct/${product._id}`)}>
+                  Edit
+                </button>
                 <button onClick={() => handleDelete(product._id)}>
                   Delete
                 </button>
