@@ -21,6 +21,8 @@ async function submitForm(UserDetails) {
 
     return userDetailsPosted;
   } catch (error) {
+    alert(error?.response?.data?.message || error.message);
+
     return error.response;
   }
 }

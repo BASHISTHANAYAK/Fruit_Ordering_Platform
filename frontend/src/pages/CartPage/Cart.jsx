@@ -92,7 +92,7 @@ const Cart = () => {
       });
     } catch (error) {
       console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again later.");
+      alert(error?.response?.data?.message || error.message);
     }
   }
 
@@ -104,7 +104,7 @@ const Cart = () => {
       setOrders(res.data.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
-      alert("Failed to fetch orders. Please try again.");
+      alert(error?.response?.data?.message || error.message);
     }
   }
 

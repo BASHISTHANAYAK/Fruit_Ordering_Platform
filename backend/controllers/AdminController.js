@@ -1,6 +1,8 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AdminModel } from "../model/AdminSchema.js";
+import { ProductModel } from "../model/ProductSchema.js";
+import { OrderModel } from "../model/OrderSchema.js";
 
 // +++++++++++++++++++++++++++++++********* Admin signUp  *********==================================================
 
@@ -125,19 +127,44 @@ const adminLoginRoute = async (req, res) => {
   }
 };
 
+//Get All Placed Orders by Admin
 
+const getAllPlacedOrdersByAdmin = async (req, res) => {
+  const { adminId } = req.params;
 
+  console.log("adminId-", adminId);
+  try {
+    const { adminId } = req.params; // Assuming `req.user` contains the logged-in admin's details after authentication
+    // Find all products created by the logged-in admin
+    const adminProducts = await ProductModel.find({ admin: adminId }).select(
+      "_id"
+    );
 
+    const adminProductIds = adminProducts.map((product) => product._id);
 
+    // Fetch orders that contain these products
+    const orders = await OrderModel.find({
+      "products.product": { $in: adminProductIds },
+    })
+      .populate("buyer", "name email") // Populate buyer details
+      .populate({
+        path: "products.product",
+        select: "name price category admin", // Populate product details
+        match: { admin: adminId }, // Ensure the product belongs to the admin
+      });
 
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "No products found ." });
+    }
 
+    res.status(200).json({
+      message: "Orders retrieved successfully",
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log({ error: error.message });
+  }
+};
 
-
-
-
-
-
-
-
-
-export { AdminSignupRoute, adminLoginRoute };
+export { AdminSignupRoute, adminLoginRoute, getAllPlacedOrdersByAdmin };

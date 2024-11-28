@@ -10,7 +10,7 @@ function enterDetails(e, setUserdetails) {
 }
 
 // form submit
-async function submitForm( UserDetails) {
+async function submitForm(UserDetails) {
   try {
     UserDetails.password = UserDetails.password.trim();
 
@@ -21,6 +21,7 @@ async function submitForm( UserDetails) {
 
     return userDetailsPosted;
   } catch (error) {
+    alert(error?.response?.data?.message || error.message);
     return error.response;
   }
 }

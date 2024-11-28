@@ -14,6 +14,7 @@ import express from "express";
 import {
   adminLoginRoute,
   AdminSignupRoute,
+  getAllPlacedOrdersByAdmin,
 } from "../controllers/AdminController.js";
 import {
   addToCart,
@@ -35,7 +36,6 @@ import adminAuth from "../middlewares/adminAuth.js";
 import userAuth from "../middlewares/userAuth.js";
 import TestingROute from "../controllers/TestingROute.js";
 const router = express.Router();
-
 
 // --------------------------------------
 //TestingROute
@@ -72,7 +72,11 @@ router.get("/getProducts/:adminId", adminAuth, getProductsByAdmin);
 router.get("/getProductById/:productId", adminAuth, getProductById);
 //editProduct
 router.put("/editProduct/:productId", adminAuth, editProduct);
-
-
+//getAllPlacedOrdersByAdmin
+router.get(
+  "/getAllPlacedOrdersByAdmin/:adminId",
+  adminAuth,
+  getAllPlacedOrdersByAdmin
+);
 
 export default router;

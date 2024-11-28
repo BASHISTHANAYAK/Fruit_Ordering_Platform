@@ -1,5 +1,4 @@
 .productsDIV {
-  /* border: 2px solid black;  */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 3%;
@@ -10,10 +9,8 @@
   margin-top: 20px;
   width: 300px;
   text-align: center;
-  /* margin-left: 30px; */
 }
 .aProductCard > img {
-  /* border: 2px solid black; */
   width: 150px;
 }
 .aProductCard button {
@@ -21,4 +18,37 @@
   margin-left: 10px;
   cursor: pointer;
   border: none;
+}
+
+.buttons_Sec > button {
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+
+
+
+
+
+
+.orderCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.orderCard h3 {
+  margin: 0 0 8px;
+}
+
+.orderCard ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.orderCard p {
+  margin: 4px 0;
 }

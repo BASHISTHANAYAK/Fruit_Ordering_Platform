@@ -1,3 +1,7 @@
+
+
+
+
 import mongoose from "mongoose";
 
 // CartItemSchema: Represents an individual item in the cart

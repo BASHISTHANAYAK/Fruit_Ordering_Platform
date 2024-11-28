@@ -65,15 +65,7 @@ const pageRoute = () => {
             </AdminProtectedRoute>
           }
         />
-        {/* EditPage */}
-        {/* <Route
-          path="/editPage"
-          element={
-            <AdminProtectedRoute>
-              <EditPage />
-            </AdminProtectedRoute>
-          }
-        /> */}
+ 
 
         {/* EditProduct */}
         <Route
