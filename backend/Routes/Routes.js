@@ -19,13 +19,14 @@ import {
   addToCart,
   buyerLoginRoute,
   buyerSignupRoute,
+  getcartProducts,
 } from "../controllers/BuyerController.js";
 import {
   createProduct,
   getAllProducts,
 } from "../controllers/ProductsController.js";
 import adminAuth from "../middlewares/adminAuth.js";
-
+import userAuth from "../middlewares/userAuth.js";
 const router = express.Router();
 
 // router.get("/", test);
@@ -55,23 +56,25 @@ const router = express.Router();
 // router.patch("/emptyCart/:_id", emptyCart);
 
 // --------------------------------------
+
+//getAllProducts
+router.get("/getAllProducts", getAllProducts);
 // Admin SignUP
 router.post("/adminSignup", AdminSignupRoute);
 //adminLoginRoute
 router.post("/adminLogin", adminLoginRoute);
-
+//products
+router.post("/createProduct", adminAuth, createProduct);
 // --------------------------------------
 //Buyer routes
 router.post("/buyerSignup", buyerSignupRoute);
 //adminLoginRoute
 router.post("/buyerLogin", buyerLoginRoute);
 // // to add productsID in usercart
-router.post("/addToCart/:buyerId", addToCart);
+router.post("/addToCart/:buyerId", userAuth, addToCart);
 
 //----------------------------------------
-//products
-router.post("/createProduct", adminAuth, createProduct);
-//getAllProducts
-router.get("/getAllProducts", getAllProducts);
+//getcartProducts
+router.get("/getcartProducts/:buyerId", userAuth, getcartProducts);
 
 export default router;

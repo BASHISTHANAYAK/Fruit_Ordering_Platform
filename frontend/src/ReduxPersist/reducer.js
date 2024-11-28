@@ -1,5 +1,5 @@
 // reducer.js
-import { SET_USER, LOGOUT_USER, ADD_TO_CART } from "./actions";
+import { SET_USER, LOGOUT_USER } from "./actions";
 
 const initialState = {
   isLoggedIn: false,
@@ -7,7 +7,6 @@ const initialState = {
   name: "",
   role: "",
   _id: null,
-  cart: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -31,17 +30,7 @@ const userReducer = (state = initialState, action) => {
         name: "",
         role: "",
       };
-    case ADD_TO_CART:
-      return {
-        ...state,
-        cart: state.cart.some((item) => item._id === action.payload._id)
-          ? state.cart.map((item) =>
-              item._id === action.payload._id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            )
-          : [...state.cart, { ...action.payload, quantity: 1 }],
-      };
+
     default:
       return state;
   }

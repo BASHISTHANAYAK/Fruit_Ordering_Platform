@@ -163,4 +163,22 @@ const addToCart = async (req, res) => {
   }
 };
 
-export { buyerSignupRoute, buyerLoginRoute, addToCart };
+// // Get all products
+const getcartProducts = async (req, res) => {
+  try {
+    const { buyerId } = req.params; // ID of the buyer
+    const buyer = await BuyerModel.findById(buyerId).populate("cart.product"); // Populating the 'product' field in the cart
+
+    if (!buyer) {
+      console.log("Buyer not found");
+      return res.status(500).json({ message: "Buyer not found" });
+    }
+    // Return the populated cart
+    return res.status(200).json(buyer);
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { buyerSignupRoute, buyerLoginRoute, addToCart, getcartProducts };

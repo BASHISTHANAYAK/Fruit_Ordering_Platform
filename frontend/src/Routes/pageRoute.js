@@ -16,7 +16,11 @@ import BuyerLogin from "../pages/buyerLogin/loginUi.js";
 import CreateProduct from "../pages/createProductPage/CreateProduct.jsx";
 import AdminDashBoard from "../pages/AdminDashboard/AdminDashBoard.jsx";
 import AdminLogin from "../pages/adminLogin/AdminLoginUi.js";
-import { AdminProtectedRoute } from "./ProtectedRouteComponent.jsx";
+import {
+  AdminProtectedRoute,
+  BuyerProtectedRoute,
+} from "./ProtectedRouteComponent.jsx";
+import Cart from "../pages/CartPage/Cart.jsx";
 
 const pageRoute = () => {
   return (
@@ -35,6 +39,15 @@ const pageRoute = () => {
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/buyerSignup" element={<BuyerSignup />} />
         <Route path="/buyerLogin" element={<BuyerLogin />} />
+        {/*Cart */}
+        <Route
+          path="/cart"
+          element={
+            <BuyerProtectedRoute>
+              <Cart />
+            </BuyerProtectedRoute>
+          }
+        />
         <Route
           path="/createProduct"
           element={
@@ -52,6 +65,7 @@ const pageRoute = () => {
             </AdminProtectedRoute>
           }
         />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

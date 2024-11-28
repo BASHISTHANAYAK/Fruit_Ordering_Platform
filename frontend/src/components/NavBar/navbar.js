@@ -1,7 +1,7 @@
 import React from "react";
 import BlankNavbar from "../../assets/images/mobileLoginNav.png";
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../ReduxPersist/actions";
 const NavWithoutLogin = () => {
@@ -10,7 +10,7 @@ const NavWithoutLogin = () => {
   const Signup = !red.isLoggedIn;
   const Logout = red.isLoggedIn;
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // Login={!isLoggedIn && "Login"}
   // Signup={!isLoggedIn && "Signup"}
   // Logout={isLoggedIn && "Logout"}
@@ -24,7 +24,7 @@ const NavWithoutLogin = () => {
       <div className="navInfo">
         <div className="mobileNumber Vegefoods_logo">
           {/* <i className="fa-solid fa-phone-volume"> </i> */}
-          <span> Vegefoods</span>
+          <span onClick={() => navigate("/")} style={{cursor:"pointer"}}> Vegefoods</span>
         </div>
         <div className="offAndShopNow">
           Get 50% off on selected items | shop now
@@ -49,13 +49,19 @@ const NavWithoutLogin = () => {
           </span>
           <span>
             {Logout && (
-              <Link
-                className="login--SignButton"
-                to="/selectAccountType"
-                onClick={() => dispatch(logoutUser())}
-              >
-                Logout
-              </Link>
+              <>
+                <Link className="login--SignButton" to="/cart">
+                  Cart
+                </Link>{" "}
+                | &nbsp;
+                <Link
+                  className="login--SignButton"
+                  to="/selectAccountType"
+                  onClick={() => dispatch(logoutUser())}
+                >
+                  Logout
+                </Link>
+              </>
             )}
           </span>
         </div>
