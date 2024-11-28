@@ -278,10 +278,10 @@ body {
 }
 
 @media screen and (max-width: 551px) {
-  .BannerAndCart,
+  /* .BannerAndCart,
   .home--Page--NavBar {
     display: none;
-  }
+  } */
   .homePage--BlankBlueNav {
     display: block;
     /*     border: 1px solid transparent; */
