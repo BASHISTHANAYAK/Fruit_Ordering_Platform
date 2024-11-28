@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../Axios_Interceptor/api.js"; // Make sure the API interceptor is set up
 import NavBar from "../../components/NavBar/navbar.js";
 import { useSelector } from "react-redux";
+import EditProductCss from "./EditProduct.module.css";
 
 const EditProduct = () => {
-  
   const reduxData = useSelector((state) => state);
   // console.log("EditProduct redux",reduxData)
   const navigate = useNavigate();
@@ -73,70 +73,74 @@ const EditProduct = () => {
   if (loading) return <p>Loading...</p>; // Show loading indicator while data is being fetched
 
   return (
-    <div>
+    <div className={EditProductCss.container}>
       <NavBar />
 
       <h1>Edit Product</h1>
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={product.name || ""}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={product.description || ""}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Price:
-          <input
-            type="number"
-            name="price"
-            value={product.price || ""}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Image URL:
-          <input
-            type="text"
-            name="image"
-            value={product.image || ""}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Category:
-          <select
-            name="category"
-            value={product.category || "Vegetable"}
-            onChange={handleChange}
-            required
-          >
-            <option value="Vegetable">Vegetable</option>
-            <option value="Fruit">Fruit</option>
-          </select>
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Product"}
-        </button>
-      </form>
+      <section>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <p> Name:</p>
+
+            <input
+              type="text"
+              name="name"
+              value={product.name || ""}
+              onChange={handleChange}
+              required
+              placeholder="name"
+            />
+          </label>
+          <label>
+            <p> Description:</p>
+
+            <textarea
+              name="description"
+              value={product.description || ""}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <label>
+            <p>Price:</p>
+            <input
+              type="number"
+              name="price"
+              value={product.price || ""}
+              onChange={handleChange}
+              required
+              placeholder="price"
+            />
+          </label>
+          <label>
+            <p>Image URL:</p>
+
+            <input
+              type="text"
+              name="image"
+              value={product.image || ""}
+              onChange={handleChange}
+              placeholder="image"
+            />
+          </label>
+          <label>
+            <p> Category:</p>
+            <select
+              name="category"
+              value={product.category || "Vegetable"}
+              onChange={handleChange}
+              required
+            >
+              <option value="Vegetable">Vegetable</option>
+              <option value="Fruit">Fruit</option>
+            </select>
+          </label>
+          <button type="submit" disabled={loading}>
+            {loading ? "Updating..." : "Update Product"}
+          </button>
+        </form>
+      </section>
     </div>
   );
 };
