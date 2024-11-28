@@ -47,48 +47,6 @@ const Home = () => {
     Navigate(`/productDetail/${_id}`);
   }
 
-  // click AddToCart +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // let count = 0;
-
-  // async function ClickAddToCartIcon(event, Clickedobj) {
-  //   event.stopPropagation();
-  //   try {
-  //     console.log("AddToCart clicked user_id:- ", user_id);
-  //     count++;
-
-  //     const obj = {
-  //       productID: Clickedobj._id,
-  //       quantity: count,
-  //       ProductCompany: Clickedobj.Company,
-  //       ProductModel: Clickedobj.Model,
-  //       ProdectImage: Clickedobj.ProdectImage,
-  //       Productprice: Clickedobj.Productprice,
-  //       ProductColor: Clickedobj.ProductColor,
-  //       ProductAvailable: Clickedobj.Available,
-  //     };
-
-  //     const idProductAdded = await api.post(
-  //       `${serverUrl}/addToCART/${user_id}`,
-  //       obj
-  //     );
-
-  //     // console.log("ClickAddToCart:- ", Clickedobj);
-  //     idProductAdded &&
-  //       toast.success("Product added to cart", {
-  //         position: "top-right",
-  //         autoClose: 1000,
-  //         hideProgressBar: true,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //   } catch (error) {
-  //     console.log("ClickAddToCart error:- ", error);
-  //   }
-  // }
-
   // ------------------------- get all  products---------------
   useEffect(() => {
     async function getAllProduct() {

@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 // ProtectedRoute component
 const BuyerProtectedRoute = ({ children }) => {
   const dataFromRedux = useSelector((state) => state);
-  console.log("BuyerProtectedRoute  ,redux->", dataFromRedux);
+  // console.log("BuyerProtectedRoute  ,redux->", dataFromRedux);
   const isAuthenticated =
     dataFromRedux.isLoggedIn && dataFromRedux.role === "Buyer";
 

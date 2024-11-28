@@ -71,7 +71,7 @@ router.get("/getProducts/:adminId", adminAuth, getProductsByAdmin);
 //getProductById
 router.get("/getProductById/:productId", adminAuth, getProductById);
 //editProduct
-router.get("/editProduct/:productId", adminAuth, editProduct);
+router.put("/editProduct/:productId", adminAuth, editProduct);
 
 
 

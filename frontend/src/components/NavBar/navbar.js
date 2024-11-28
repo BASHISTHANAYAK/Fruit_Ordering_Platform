@@ -14,7 +14,7 @@ const NavWithoutLogin = () => {
   // Login={!isLoggedIn && "Login"}
   // Signup={!isLoggedIn && "Signup"}
   // Logout={isLoggedIn && "Logout"}
-  console.log("home  ,redux->", red);
+  // console.log("nav  ,redux->", red);
 
   return (
     <div>

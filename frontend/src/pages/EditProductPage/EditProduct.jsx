@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../Axios_Interceptor/api.js"; // Make sure the API interceptor is set up
 import NavBar from "../../components/NavBar/navbar.js";
+import { useSelector } from "react-redux";
 
 const EditProduct = () => {
+  
+  const reduxData = useSelector((state) => state);
+  // console.log("EditProduct redux",reduxData)
   const navigate = useNavigate();
   const { productId } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState({
@@ -22,7 +26,7 @@ const EditProduct = () => {
       try {
         const res = await api.get(`/getProductById/${productId}`); // Fetch the product details
         console.log("fetchProduct-", res);
-        if (res.data && res.data) {
+        if (res.data) {
           setProduct(res.data); // Set product data to state
         } else {
           setError("Product not found");
@@ -48,22 +52,22 @@ const EditProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("product-", product);
-        setLoading(true);
+    setLoading(true);
 
-        try {
-          const res = await api.put(`/editProduct/${productId}`, {
-            ...product,
-            adminId: "ADMIN_ID", // You need to pass the admin's ID here (e.g., from Redux state)
-          });
-          console.log(res);
-          alert("Product updated successfully");
-          navigate("/adminDashboard"); // Redirect to admin dashboard after edit
-        } catch (err) {
-          console.error("Error updating product:", err);
-          setError("Error updating product");
-        } finally {
-          setLoading(false);
-        }
+    try {
+      const res = await api.put(`/editProduct/${productId}`, {
+        ...product,
+        adminId: reduxData._id, // You need to pass the admin's ID here (e.g., from Redux state)
+      });
+      console.log(res);
+      alert("Product updated successfully");
+      navigate("/adminDashboard"); // Redirect to admin dashboard after edit
+    } catch (err) {
+      console.error("Error updating product:", err);
+      setError("Error updating product");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) return <p>Loading...</p>; // Show loading indicator while data is being fetched
