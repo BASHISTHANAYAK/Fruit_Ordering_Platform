@@ -36,7 +36,7 @@ const AdminDashBoard = () => {
       const res = await api.get(
         `/getAllPlacedOrdersByAdmin/${adminDetails._id}`
       );
-      console.log("getPlaceOrders:-", res.data.orders);
+      console.log("getPlaceOrders:-", res);
       setOrders(res.data.orders);
       setShowOrders(true);
     } catch (error) {
@@ -202,7 +202,6 @@ const AdminDashBoard = () => {
                     })}
                   </ul>
 
-                
                   <p>
                     <strong>Order Date:</strong>{" "}
                     {new Date(order.createdAt).toLocaleDateString()}

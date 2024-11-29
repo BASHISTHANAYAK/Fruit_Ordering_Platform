@@ -10,17 +10,20 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 - live URL: https://fruit-ordering-platform-xjbc.vercel.app/
 
-### Mock credentials for Testing
+### Mock Credentials for Testing
 
 - **Admin**
-
-  - Email: `admin1@gmail.com`
-  - Password: `admin1@A`
+  - Email: `bashisthanayak09@gmail.com`
+  - Password: `bashisthanayak09@B`
 
 - **User/Buyer**
+  - Email: `moresivam49@gmail.com`
+  - Password: `moresivam49@M`
+  - **Note**: You will receive email notifications about the status of your order at the email address you provided during registration.
 
-  - Email: `user11@gmail.com`
-  - Password: `user11@U`
+---
+
+
 
 - **You can use new credentials for register/login as an admin to manage your admin account, or can register/login as a buyer for purchasing purposes.**
 
@@ -42,6 +45,7 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
      - **Pending**: Order received.
      - **In Progress**: Order is being processed.
      - **Delivered**: Order successfully delivered.
+   - **Email Notifications**: Receive email notifications when the order status is updated.
 
 ### For Admins
 
@@ -62,7 +66,28 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB (hosted on MongoDB Atlas)
 - **Authentication**: JWT (JSON Web Tokens), bcrypt
+- **Email Service**: Nodemailer (for sending email notifications)
 - **Deployment**: Vercel (optional)
+
+---
+
+## Email Notification Feature
+
+This project includes an email notification system that alerts the buyer whenever their order status is updated. The email contains details about the updated status of the order, with both text and HTML formatted messages.
+
+### How it Works:
+
+1. **Order Status Update**: When an admin updates the order status (e.g., "Pending", "In Progress", "Delivered"), an email is automatically sent to the buyer.
+2. **Email Content**:
+   - **Subject**: Order Status Update
+   - **Text Body**: "Your order status has been updated to [Status]."
+   - **HTML Body**: `<p>Your order status has been updated to <strong>[Status]</strong>.</p>`
+3. **Email Service**: The email notifications are sent using **Nodemailer**, which is configured with a Gmail account. You can modify the credentials and service provider if needed.
+
+### Prerequisites for Email Notification:
+
+- Set up a Gmail account (or any email provider) and generate an **App Password** for secure access.
+- Ensure that your backend code is properly configured to send emails using **Nodemailer**.
 
 ---
 
@@ -72,6 +97,7 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 - Node.js (v16+ recommended)
 - MongoDB Atlas account or local MongoDB installation
+- Gmail account (or other email provider for sending emails)
 
 ### Steps
 

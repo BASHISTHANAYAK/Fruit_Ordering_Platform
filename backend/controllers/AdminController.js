@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { AdminModel } from "../model/AdminSchema.js";
 import { ProductModel } from "../model/ProductSchema.js";
 import { OrderModel } from "../model/OrderSchema.js";
-
+import { sendEmail } from "../Utility/mailer.js";
 // +++++++++++++++++++++++++++++++********* Admin signUp  *********==================================================
 
 // signUp
@@ -169,12 +169,14 @@ const getAllPlacedOrdersByAdmin = async (req, res) => {
 
 //Update Order Status
 async function updateStatusOfOrder(req, res) {
+  // ------------------------------------
   const { orderId, productId } = req.params;
   const { status } = req.body;
 
   try {
-    // Find the order
-    const order = await OrderModel.findById(orderId);
+    // Find the order and populate the buyer details (including email)
+    const order = await OrderModel.findById(orderId).populate("buyer", "email");
+
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
@@ -195,15 +197,27 @@ async function updateStatusOfOrder(req, res) {
     // Save the updated order
     await order.save();
 
-    res.status(200).json({ message: "Product status updated successfully" });
+    // Get the buyer's email (now populated)
+    const buyerEmail = order.buyer.email;
+    if (!buyerEmail) {
+      return res.status(400).json({ message: "Buyer email not found" });
+    }
+
+    const subject = "Order Status Update";
+    const text = `Your order status has been updated to ${status}.`;
+    const html = `<p>Your order status has been updated to <strong>${status}</strong>.</p>`;
+
+    // Send the email notification
+    await sendEmail(buyerEmail, subject, text, html);
+
+    res.status(200).json({ message: "Product status updated and email sent" });
+    console.log("Product status updated and email sent");
   } catch (error) {
     console.error("Error updating product status:", error);
-    res
-      .status(500)
-      .json({
-        message: "Failed to update product status",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Failed to update product status",
+      error: error.message,
+    });
   }
 }
 
