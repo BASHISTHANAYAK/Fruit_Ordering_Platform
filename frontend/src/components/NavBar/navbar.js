@@ -24,7 +24,9 @@ const NavWithoutLogin = () => {
           Vegefoods
         </div>
         <div className={navBarcss.offAndShopNow}>
-          Get 10% off on selected items | shop now
+          {" "}
+          👤:
+          <strong> &nbsp; {red.name}</strong>
         </div>
         <div className={navBarcss.log_sign_cart_dashDIV}>
           <span>
@@ -65,7 +67,7 @@ const NavWithoutLogin = () => {
                     Dashboard
                   </Link>
                 )}
-               &nbsp; | &nbsp;
+                &nbsp; | &nbsp;
                 <Link
                   className={navBarcss.login_SignButton}
                   to="/selectAccountType"

@@ -1,0 +1,132 @@
+/* nav and banner section */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.banner {
+  /* border: 3px dotted red; */
+  width: 100%;
+  height: 65vh;
+  background-image: url(../../assets/images/homePageBanner.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  color: white;
+}
+.banner > section {
+  z-index: 20;
+  text-align: center;
+  font-weight: 400;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.banner > section > h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+.banner > section > p {
+  margin: 0;
+  padding: 0;
+}
+
+.allProduct_container {
+  /* border: 2px solid red; */
+  width: 95vw;
+  margin: auto;
+  /* padding: 20px; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  /* justify-content: space-evenly; */
+  gap: 15px;
+  margin-top: 5%;
+}
+.Asingle_Product_div {
+  /* border: 3px dotted blue; */
+  height: auto;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  padding: 10px ;
+  /* padding-bottom: 40px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* background-color: aquamarine; */
+}
+
+.Asingle_Product_div > .blueColorDIv {
+  /* border: 1px solid red; */
+  background-color: rgb(212, 229, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.Asingle_Product_div > .blueColorDIv > img {
+  /* border: 1px solid black; */
+  height: 150px;
+  object-fit: contain;
+}
+
+.productDetails {
+  /* border: 1px solid rgb(245, 245, 246); */
+  padding: 20px;
+}
+.productDetails p {
+  border: 1px dotted transparent;
+  margin-top: 0.5%;
+  font-weight: 500;
+}
+
+.Asingle_Product_div p {
+  /* border: 1px solid black; */
+  margin: 2px;
+  margin-left: 12px;
+  margin-top: 5px;
+}
+
+/* please_log for adding to cart  */
+
+.Add_to_cart,
+.please_log {
+  border: 2px solid;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 9%;
+  cursor: pointer;
+}
+.Add_to_cart:hover,
+.please_log {
+  transform: scale(0.97);
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 3px; /* Set the scrollbar width to 3px */
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Make the track invisible */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.5); /* Thinner, semi-transparent thumb */
+  border-radius: 10px; /* Round edges for a smoother look */
+}
+
+/* Thumb hover state */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 136, 136, 0.8); /* Darken thumb on hover */
+}
+
+/* Remove the scrollbar buttons (arrows) */
+::-webkit-scrollbar-button {
+  display: none; /* Hide buttons on both ends */
+}
