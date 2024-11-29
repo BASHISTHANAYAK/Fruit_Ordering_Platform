@@ -167,4 +167,49 @@ const getAllPlacedOrdersByAdmin = async (req, res) => {
   }
 };
 
-export { AdminSignupRoute, adminLoginRoute, getAllPlacedOrdersByAdmin };
+//Update Order Status
+async function updateStatusOfOrder(req, res) {
+  const { orderId, productId } = req.params;
+  const { status } = req.body;
+
+  try {
+    // Find the order
+    const order = await OrderModel.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Find the product in the order
+    const productInOrder = order.products.find(
+      (prod) => prod.product.toString() === productId
+    );
+    if (!productInOrder) {
+      return res
+        .status(404)
+        .json({ message: "Product not found in this order" });
+    }
+
+    // Update the product status
+    productInOrder.status = status;
+
+    // Save the updated order
+    await order.save();
+
+    res.status(200).json({ message: "Product status updated successfully" });
+  } catch (error) {
+    console.error("Error updating product status:", error);
+    res
+      .status(500)
+      .json({
+        message: "Failed to update product status",
+        error: error.message,
+      });
+  }
+}
+
+export {
+  AdminSignupRoute,
+  adminLoginRoute,
+  getAllPlacedOrdersByAdmin,
+  updateStatusOfOrder,
+};

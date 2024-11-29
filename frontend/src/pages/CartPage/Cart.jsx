@@ -139,6 +139,7 @@ const Cart = () => {
                   <p>Name: {item?.product?.name}</p>
                   <p>Price: ₹{item?.product?.price}</p>
                   <p>Quantity: {item?.quantity}</p>
+                  <strong>Status: {item?.status}</strong>
                 </div>
               ))}
             </div>

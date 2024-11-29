@@ -221,18 +221,22 @@ const placeOrder = async (req, res) => {
       country,
     };
 
+    // Create an array of products with status 'Pending' for each item
+    const products = cartItems.map((item) => ({
+      product: item.productId,
+      quantity: item.quantity,
+      status: "Pending", // Set the initial status of each product
+    }));
+
     // Create a new order
     const newOrder = new OrderModel({
       buyer: buyerId,
-      products: cartItems.map((item) => ({
-        product: item.productId,
-        quantity: item.quantity,
-      })),
+      products,
       totalPrice,
       deliveryName,
       contactInfo,
       deliveryAddress, // Use the object format
-      status: "Pending", // Explicitly set status (optional, as it defaults to "Pending")
+      status: "Pending", // Overall order status (can be updated later if needed)
     });
 
     // Save the order to the database

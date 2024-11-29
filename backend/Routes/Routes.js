@@ -15,6 +15,7 @@ import {
   adminLoginRoute,
   AdminSignupRoute,
   getAllPlacedOrdersByAdmin,
+  updateStatusOfOrder,
 } from "../controllers/AdminController.js";
 import {
   addToCart,
@@ -77,6 +78,14 @@ router.get(
   "/getAllPlacedOrdersByAdmin/:adminId",
   adminAuth,
   getAllPlacedOrdersByAdmin
+);
+
+// `/updateProductStatus/${orderId}/${productId}`,
+
+router.put(
+  "/updateProductStatus/:orderId/:productId",
+  adminAuth,
+  updateStatusOfOrder
 );
 
 export default router;

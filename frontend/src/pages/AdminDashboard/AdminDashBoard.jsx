@@ -1,9 +1,8 @@
-// ----------------------------------------------------------------------------------------------------------------------
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import NavBar from "../../components/NavBar/navbar.js";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../../Axios_Interceptor/api.js";
 import adminDashCss from "./AdminDash.module.css";
 
@@ -18,6 +17,7 @@ const AdminDashBoard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch products created by the admin
+
   async function fetchProducts() {
     try {
       const res = await api.get(`/getProducts/${adminDetails._id}`);
@@ -58,6 +58,31 @@ const AdminDashBoard = () => {
       alert(error?.response?.data?.message || error.message);
     }
   };
+
+  // Change status of a product
+  async function changeStatus(event, orderId, productId) {
+    const status = event.target.value;
+
+    if (status) {
+      try {
+        // Send the request to update the product status
+        const response = await api.put(
+          `/updateProductStatus/${orderId}/${productId}`,
+          {
+            status, // The new status of the product
+          }
+        );
+        console.log("response-", response);
+
+        // Handle successful response
+        alert("Product status updated successfully");
+        getPlaceOrders(); // Refetch orders after status change to update UI
+      } catch (error) {
+        console.error("Error updating product status:", error);
+        alert(error?.response?.data?.message || error.message);
+      }
+    }
+  }
 
   return (
     <>
@@ -120,9 +145,14 @@ const AdminDashBoard = () => {
                 >
                   <h3>Order ID: {order._id}</h3>
                   <p>
-                    <strong>Buyer:</strong> {order.buyer.name} (
+                    <strong>Buyer name:</strong> {order.buyer.name} (
                     {order.buyer.email})
                   </p>
+                  <hr />
+                  <p>
+                    <strong>Delivery name:</strong> {order.deliveryName}
+                  </p>
+
                   <p>
                     <strong>Delivery Address:</strong>{" "}
                     {order.deliveryAddress.street}, {order.deliveryAddress.city}
@@ -133,20 +163,46 @@ const AdminDashBoard = () => {
                   <p>
                     <strong>Contact:</strong> {order.contactInfo}
                   </p>
+
                   <h4>Ordered Items:</h4>
                   <ul>
-                    {order?.products?.map((objec) => (
-                      <li key={objec?.product?._id}>
-                        {objec?.product?.name}- Quantity:{objec?.quantity}
-                      </li>
-                    ))}
+                    {order.products.map((objec) => {
+                      if (
+                        objec.product &&
+                        objec.product.admin === adminDetails._id
+                      ) {
+                        return (
+                          <li key={objec.product._id}>
+                            {objec.product.name} - Quantity: {objec.quantity}
+                            <p>
+                              <strong>Product id:</strong> {objec.product._id}
+                            </p>
+                            {/* Change product status */}
+                            <div>
+                              <strong>Change Status:</strong>
+                              <select
+                                onChange={(event) =>
+                                  changeStatus(
+                                    event,
+                                    order._id,
+                                    objec.product._id
+                                  )
+                                }
+                                value={objec.status} // Pre-selected option based on current status
+                              >
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Delivered">Delivered</option>
+                              </select>
+                            </div>
+                          </li>
+                        );
+                      }
+                      return null;
+                    })}
                   </ul>
-                  <p>
-                    <strong>Total Price:</strong> ₹{order.totalPrice}
-                  </p>
-                  <p>
-                    <strong>Status:</strong> {order.status}
-                  </p>
+
+                
                   <p>
                     <strong>Order Date:</strong>{" "}
                     {new Date(order.createdAt).toLocaleDateString()}
