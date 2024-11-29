@@ -129,7 +129,7 @@ const Home = () => {
       </div>
 
       <section>
-        <h1>HI , {reduxData.name}</h1>
+        <h1>Hi , {reduxData.name}</h1>
       </section>
 
       {/*filtersANDSortings div End  */}

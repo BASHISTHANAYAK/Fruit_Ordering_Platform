@@ -6,15 +6,19 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 ---
 
-# Live Demo 
+# Live Demo
+
 - live URL: https://fruit-ordering-platform-xjbc.vercel.app/
+
 ### Mock credentials for Testing
 
 - **Admin**
+
   - Email: `admin1@gmail.com`
   - Password: `admin1@A`
 
 - **User/Buyer**
+
   - Email: `user11@gmail.com`
   - Password: `user11@U`
 
@@ -90,6 +94,7 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 3. **Set Up Environment Variables Create a .env file in the backend directory and add the following:**
 
 ### Steps
+
 - create an account in mongo atlas
 - add these credentials
 - PORT=5000
@@ -101,11 +106,12 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 4. **Start the Application**
 
 Backend:
+
 - go to backend folder in terminal
 - nodemon .\index.js
 
-
 frontend:
+
 - go to frontend folder in terminal
 - npm start
 

@@ -1,41 +1,38 @@
-import React from "react";
-import BlankNavbar from "../../assets/images/mobileLoginNav.png";
-import "./navbar.css";
+import React, { useState } from "react";
+import navBarcss from "./navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../ReduxPersist/actions";
+
 const NavWithoutLogin = () => {
+  const [openMobileNav, setOpenMobileNav] = useState(false);
   const red = useSelector((state) => state);
   const Login = !red.isLoggedIn;
   const Signup = !red.isLoggedIn;
   const Logout = red.isLoggedIn;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Login={!isLoggedIn && "Login"}
-  // Signup={!isLoggedIn && "Signup"}
-  // Logout={isLoggedIn && "Logout"}
-  // console.log("nav  ,redux->", red);
 
   return (
-    <div>
-      <nav className="homePage--Navbar">
-        <img src={BlankNavbar} alt="navWithoutLogin" />
-      </nav>
-      <div className="navInfo">
-        <div className="mobileNumber Vegefoods_logo">
-          {/* <i className="fa-solid fa-phone-volume"> </i> */}
-          <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
-            {" "}
-            Vegefoods
-          </span>
+    <>
+      <section
+        className={`${navBarcss.navInfo} ${
+          openMobileNav && navBarcss.openNavClass
+        }`}
+      >
+        <div className={navBarcss.Vegefoods_logo} onClick={() => navigate("/")}>
+          Vegefoods
         </div>
-        <div className="offAndShopNow">
-          Get 50% off on selected items | shop now
+        <div className={navBarcss.offAndShopNow}>
+          Get 10% off on selected items | shop now
         </div>
-        <div>
+        <div className={navBarcss.log_sign_cart_dashDIV}>
           <span>
             {Login && (
-              <Link className="login--SignButton" to="/selectAccountType">
+              <Link
+                className={navBarcss.login_SignButton}
+                to="/selectAccountType"
+              >
                 Login
               </Link>
             )}
@@ -43,8 +40,11 @@ const NavWithoutLogin = () => {
           <span>
             {Signup && (
               <>
-                <span> | </span>
-                <Link className="login--SignButton" to="/selectAccountType">
+                <span className={navBarcss.divider}> | </span>
+                <Link
+                  className={navBarcss.login_SignButton}
+                  to="/selectAccountType"
+                >
                   Signup
                 </Link>
               </>
@@ -54,17 +54,20 @@ const NavWithoutLogin = () => {
             {Logout && (
               <>
                 {red.role === "Buyer" ? (
-                  <Link className="login--SignButton" to="/cart">
+                  <Link className={navBarcss.login_SignButton} to="/cart">
                     Cart
                   </Link>
                 ) : (
-                  <Link className="login--SignButton" to="/adminDashboard">
+                  <Link
+                    className={navBarcss.login_SignButton}
+                    to="/adminDashboard"
+                  >
                     Dashboard
                   </Link>
                 )}
-                | &nbsp;
+               &nbsp; | &nbsp;
                 <Link
-                  className="login--SignButton"
+                  className={navBarcss.login_SignButton}
                   to="/selectAccountType"
                   onClick={() => dispatch(logoutUser())}
                 >
@@ -74,8 +77,18 @@ const NavWithoutLogin = () => {
             )}
           </span>
         </div>
+      </section>
+      <div
+        className={navBarcss.openNavBtn}
+        onClick={() => setOpenMobileNav((pre) => !pre)}
+      >
+        {!openMobileNav ? (
+          <i className="fa-duotone fa-light fa-bars"></i>
+        ) : (
+          <i class="fa-sharp fa-solid fa-xmark" style={{ color: "white" }}></i>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
