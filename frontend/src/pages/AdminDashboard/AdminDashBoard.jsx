@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import NavBar from "../../components/NavBar/navbar.js";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../../Axios_Interceptor/api.js";
 import adminDashCss from "./AdminDash.module.css";
 
@@ -104,19 +104,22 @@ const AdminDashBoard = () => {
           <div className={adminDashCss.productsDIV}>
             {products.map((product) => (
               <div key={product._id} className={adminDashCss.aProductCard}>
-                <h3>{product.name}</h3>
-                <p>Price: ₹{product.price}</p>
-                <p>Description: {product.description}</p>
                 {product.image && (
                   <img src={product.image} alt={product.name} />
                 )}
+                <h3>{product.name}</h3>
+                <p>Price: ₹{product.price}</p>
+                <p>Description: {product.description}</p>
+
                 <p>Category: {product.category}</p>
-                <button onClick={() => navigate(`/editProduct/${product._id}`)}>
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(product._id)}>
-                  Delete
-                </button>
+                <div className={adminDashCss.deleteEdit_BtnDiv}>
+                  <button onClick={() => navigate(`/editProduct/${product._id}`)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(product._id)}>
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>

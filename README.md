@@ -8,11 +8,12 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 # Live Demo
 
-- live URL: https://fruit-ordering-platform-xjbc.vercel.app/
+- Live URL: [https://fruit-ordering-platform-xjbc.vercel.app/](https://fruit-ordering-platform-xjbc.vercel.app/)
 
 ### Mock Credentials for Testing
 
 - **Admin**
+
   - Email: `bashisthanayak09@gmail.com`
   - Password: `bashisthanayak09@B`
 
@@ -22,10 +23,6 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
   - **Note**: You will receive email notifications about the status of your order at the email address you provided during registration.
 
 ---
-
-
-
-- **You can use new credentials for register/login as an admin to manage your admin account, or can register/login as a buyer for purchasing purposes.**
 
 ## Features
 
@@ -64,10 +61,9 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 - **Frontend**: React.js, Redux
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB (hosted on MongoDB Atlas)
+- **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens), bcrypt
-- **Email Service**: Nodemailer (for sending email notifications)
-- **Deployment**: Vercel (optional)
+- **Deployment**: Vercel, render
 
 ---
 

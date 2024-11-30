@@ -18,15 +18,21 @@
   margin-top: 20px;
   width: 300px;
   text-align: center;
+  padding: 10px 0;
+  margin-left: 3%;
 }
 .aProductCard > img {
-  width: 150px;
+  height: 180px;
+  width: 100%;
+  object-fit: contain;
 }
 .aProductCard button {
   padding: 10px 20px;
-  margin-left: 10px;
   cursor: pointer;
   border: none;
+  border-radius: 5px;
+  background-color: rgb(224, 197, 85);
+  padding: 10px 30px;
 }
 
 .buttons_Sec > button {
@@ -38,7 +44,7 @@
 .orderCard {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px ;
+  padding: 16px;
   margin-bottom: 16px;
   background-color: #294108;
   color: white;
@@ -55,4 +61,10 @@
 
 .orderCard p {
   margin: 4px 0;
+}
+.deleteEdit_BtnDiv {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  gap: 8%;
 }
