@@ -120,14 +120,20 @@ const Home = () => {
                 <p className={homeCss.color_and_type}></p>
                 <p>description: {obj.description}</p>
               </div>
-              <select name="" id="" onChange={addQuantity} className={homeCss.selectQuantity}>
-                <option value="">--Select Qunatity--</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="4">5</option>
-              </select>
+              {
+                reduxData.isLoggedIn && reduxData.role === "Buyer" &&
+                <select name="" id="" onChange={addQuantity} className={homeCss.selectQuantity}>
+                  <option value="">--Select Qunatity--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="4">5</option>
+                </select>
+
+
+              }
+
 
               {reduxData.isLoggedIn && reduxData.role === "Buyer" && (
                 <section
