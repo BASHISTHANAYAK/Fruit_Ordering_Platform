@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NavWithoutLogin from "../../components/NavBar/navbar";
 import api from "../../Axios_Interceptor/api.js";
 import { useSelector } from "react-redux";
 import cartCss from "./Cart.module.css";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const Cart = () => {
   const [cartData, setCartData] = useState([]);
@@ -18,6 +18,8 @@ const Cart = () => {
     country: "",
   });
   const [orders, setOrders] = useState([]);
+  const [showCartORPreviousOrders, setShowCartORPreviousOrders] =
+    useState("showCart");
 
   const { _id } = useSelector((state) => state);
 
@@ -111,12 +113,12 @@ const Cart = () => {
         theme: "light",
       });
       console.error("Error placing order:", error);
-   
     }
   }
 
   //fetchOrders
   async function fetchOrders() {
+    setShowCartORPreviousOrders(() => "showPlacedOrders");
     try {
       const res = await api.get(`/getOrders/${_id}`);
       console.log("Fetched Orders:", res.data.orders);
@@ -129,23 +131,32 @@ const Cart = () => {
 
   return (
     <div>
-            <ToastContainer  />
+      <ToastContainer />
 
       <NavWithoutLogin />
       <section className={cartCss.heading}>
         <h1>Cart</h1>
         <div>
-          <button onClick={fetchOrders}>Check Orders</button>
+          <button onClick={fetchOrders}>
+            {showCartORPreviousOrders === "showCart"
+              ? "Check Orders"
+              : "Go to cart"}
+          </button>
         </div>
       </section>
-      {/* order history  */}
-      <h2>Order History</h2>
 
-      {orders.length > 0 && (
+      {/* Orders history  */}
+      <h2>
+        {showCartORPreviousOrders === "showCart" ? null : "Orders History"}
+      </h2>
+
+      {orders.length > 0 && showCartORPreviousOrders === "showPlacedOrders" && (
         <section className={cartCss.ordersSection}>
-          {orders.map((order) => (
-            <div key={order._id} className={cartCss.singleOrder}>
-              <h3>Order ID: {order?._id}</h3>
+          {orders.map((order, i) => (
+            <div key={order._id} className={cartCss.aPlacedOrder_Div}>
+              <h3>
+                Order ID {i + 1}: {order?._id}
+              </h3>
               <p>Status: {order?.status}</p>
               <p>Total Price: ₹{order?.totalPrice}</p>
               <p>
@@ -156,7 +167,10 @@ const Cart = () => {
               </p>
               <h4>Products:</h4>
               {order.products.map((item) => (
-                <div key={item?.product?._id} className={cartCss.singleProduct}>
+                <div
+                  key={item?.product?._id}
+                  className={cartCss.single_Placed_Product_DetailsDiv}
+                >
                   <img src={item?.product?.image} alt={item?.product?.name} />
                   <p>Name: {item?.product?.name}</p>
                   <p>Price: ₹{item?.product?.price}</p>
@@ -169,130 +183,132 @@ const Cart = () => {
         </section>
       )}
 
-      {/* Cart summary */}
+      {/*Products in Cart Now / summary */}
 
-      <main>
-        {cartData.length > 0 && orders.length === 0 && (
-          <section className={cartCss.summary}>
-            <div>
-              <h1>Cart Summary</h1>
-              <p>Number of products: {cartData.length}</p>
-              <p>Total Price: ₹{totalPrice}</p>
-              <p>Discount: 10%</p>
-              <h3>Final Total: ₹{totalPrice - Math.ceil(totalPrice / 10)}</h3>
-            </div>
-            {/* Delivery Details Form */}
-            <h2>Delivery Details</h2>
+      {showCartORPreviousOrders === "showCart" && (
+        <main>
+          {cartData.length > 0 && orders.length === 0 && (
+            <section className={cartCss.summary}>
+              <div className={cartCss.cartSummaryDiv}>
+                <h1>Cart Summary</h1>
+                <p>Number of products: {cartData.length}</p>
+                <p>Total Price: ₹{totalPrice}</p>
+                <p>Discount: 10%</p>
+                <h3>Final Total: ₹{totalPrice - Math.ceil(totalPrice / 10)}</h3>
+              </div>
+              {/* Delivery Details Form */}
+              <h2 className={cartCss.deliveryDetails}>Delivery Details</h2>
 
-            <form className={cartCss.deliveryForm} onSubmit={placeOrder}>
-              <div>
-                <label htmlFor="deliveryName">Name:</label>
-                <input
-                  type="text"
-                  id="deliveryName"
-                  name="deliveryName"
-                  value={deliveryDetails.deliveryName}
-                  onChange={handleInputChange}
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="contactInfo">Contact Info:</label>
-                <input
-                  type="text"
-                  id="contactInfo"
-                  name="contactInfo"
-                  value={deliveryDetails.contactInfo}
-                  onChange={handleInputChange}
-                  placeholder="Enter your contact number"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="deliveryAddress">street:</label>
-                <input
-                  id="street"
-                  name="street"
-                  value={deliveryDetails.street}
-                  onChange={handleInputChange}
-                  placeholder="Enter your delivery street"
-                  required
-                ></input>
-              </div>
-              <div>
-                <label htmlFor="city">city :</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={deliveryDetails.city}
-                  onChange={handleInputChange}
-                  placeholder="Enter your city "
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="state">state :</label>
-                <input
-                  type="text"
-                  id="state"
-                  name="state"
-                  value={deliveryDetails.state}
-                  onChange={handleInputChange}
-                  placeholder="Enter your state "
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="postalcode">postalcode :</label>
-                <input
-                  type="text"
-                  id="postalcode"
-                  name="postalcode"
-                  value={deliveryDetails.postalcode}
-                  onChange={handleInputChange}
-                  placeholder="Enter your postalcode "
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="country">country :</label>
-                <input
-                  type="text"
-                  id="country"
-                  name="country"
-                  value={deliveryDetails.country}
-                  onChange={handleInputChange}
-                  placeholder="Enter your country "
-                  required
-                />
-              </div>
-
-              <input
-                type="submit"
-                value=" Place Order"
-                className={cartCss.PlaceOrder}
-                disabled={cartData.length === 0}
-              />
-            </form>
-          </section>
-        )}
-
-        {/* Cart products */}
-        <section className={cartCss.allCart_Products_container}>
-          {cartData.length > 0 && orders.length === 0
-            ? cartData.map((obj) => (
-                <div key={obj._id} className={cartCss.singleProduct}>
-                  <img src={obj?.product?.image} alt="img" />
-                  <h2>Name: {obj?.product?.name}</h2>
-                  <h2>Price: ₹{obj?.product?.price}</h2>
-                  <h2>Quantity: {obj?.quantity}</h2>
+              <form className={cartCss.deliveryForm} onSubmit={placeOrder}>
+                <div>
+                  <label htmlFor="deliveryName">Name:</label>
+                  <input
+                    type="text"
+                    id="deliveryName"
+                    name="deliveryName"
+                    value={deliveryDetails.deliveryName}
+                    onChange={handleInputChange}
+                    placeholder="Enter your name"
+                    required
+                  />
                 </div>
-              ))
-            : !cartData.length > 0 && <p>Cart is empty.</p>}
-        </section>
-      </main>
+                <div>
+                  <label htmlFor="contactInfo">Contact Info:</label>
+                  <input
+                    type="text"
+                    id="contactInfo"
+                    name="contactInfo"
+                    value={deliveryDetails.contactInfo}
+                    onChange={handleInputChange}
+                    placeholder="Enter your contact number"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="deliveryAddress">street:</label>
+                  <input
+                    id="street"
+                    name="street"
+                    value={deliveryDetails.street}
+                    onChange={handleInputChange}
+                    placeholder="Enter your delivery street"
+                    required
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor="city">city :</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={deliveryDetails.city}
+                    onChange={handleInputChange}
+                    placeholder="Enter your city "
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="state">state :</label>
+                  <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    value={deliveryDetails.state}
+                    onChange={handleInputChange}
+                    placeholder="Enter your state "
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="postalcode">postalcode :</label>
+                  <input
+                    type="text"
+                    id="postalcode"
+                    name="postalcode"
+                    value={deliveryDetails.postalcode}
+                    onChange={handleInputChange}
+                    placeholder="Enter your postalcode "
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="country">country :</label>
+                  <input
+                    type="text"
+                    id="country"
+                    name="country"
+                    value={deliveryDetails.country}
+                    onChange={handleInputChange}
+                    placeholder="Enter your country "
+                    required
+                  />
+                </div>
+
+                <input
+                  type="submit"
+                  value=" Place Order"
+                  className={cartCss.PlaceOrder}
+                  disabled={cartData.length === 0}
+                />
+              </form>
+            </section>
+          )}
+
+          {/*  products in Cart */}
+          <section className={cartCss.allCart_Products_container}>
+            {cartData.length > 0 && orders.length === 0
+              ? cartData.map((obj) => (
+                  <div key={obj._id} className={cartCss.singleProduct}>
+                    <img src={obj?.product?.image} alt="img" />
+                    <h2>Name: {obj?.product?.name}</h2>
+                    <h2>Price: ₹{obj?.product?.price}</h2>
+                    <h2>Quantity: {obj?.quantity}</h2>
+                  </div>
+                ))
+              : !cartData.length > 0 && <p>Cart is empty.</p>}
+          </section>
+        </main>
+      )}
     </div>
   );
 };

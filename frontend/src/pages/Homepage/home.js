@@ -13,7 +13,6 @@ import { logoutUser } from "../../ReduxPersist/actions.js";
 
 const Home = () => {
   const [AllData, setAllData] = useState([]);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const reduxData = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -22,19 +21,6 @@ const Home = () => {
   console.log("home  ,redux->", reduxData);
 
   const Navigate = useNavigate();
-
-  useEffect(() => {
-    const handleResize = () => {
-      console.log("handleResize");
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   // ------------------------- get all  products---------------
   useEffect(() => {
@@ -136,19 +122,12 @@ const Home = () => {
                 <p>description: {obj.description}</p>
               </div>
 
-              {reduxData.isLoggedIn && reduxData.role === "Buyer" ? (
+              {reduxData.isLoggedIn && reduxData.role === "Buyer" && (
                 <section
                   className={homeCss.Add_to_cart}
                   onClick={() => addtocartFun(reduxData._id, obj._id)}
                 >
                   Add To Cart
-                </section>
-              ) : (
-                <section
-                  className={`${homeCss.Add_to_cart} ${homeCss.please_log}`}
-                  onClick={log_to_addIn_cart}
-                >
-                  {reduxData.role === "Admin" ? "login as a user" : "Log in"}
                 </section>
               )}
             </div>
