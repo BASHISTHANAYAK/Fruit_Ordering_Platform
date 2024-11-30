@@ -24,6 +24,7 @@ import {
   fetchOrders,
   getcartProducts,
   placeOrder,
+  removeFromCart,
 } from "../controllers/BuyerController.js";
 import {
   createProduct,
@@ -86,6 +87,12 @@ router.put(
   "/updateProductStatus/:orderId/:productId",
   adminAuth,
   updateStatusOfOrder
+);
+//removeFromCart
+router.delete(
+  "/removeFromCart/:buyerId/:objToDeleteId",
+  userAuth,
+  removeFromCart
 );
 
 export default router;

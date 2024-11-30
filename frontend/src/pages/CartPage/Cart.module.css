@@ -8,7 +8,7 @@ main {
   align-items: center;
   justify-content: space-between;
   margin-top: 3%;
-  padding: 5px 10px;
+  padding: 15px 5px 5px 10px;
 }
 .cartSummaryDiv > h1 {
   border-bottom: 2px solid;
@@ -65,7 +65,7 @@ main {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 5px 5px 20px 5px;
+  padding: 0px 5px 20px 5px;
   border-radius: 3px;
 }
 
@@ -73,14 +73,17 @@ main {
   /* border: 2px solid green; */
   display: block;
   width: 100%;
-  /* height: 200px; */
+  height: 200px;
   object-fit: contain;
   border-radius: 3px;
 }
 .allCart_Products_container > div > h2 {
+  /* border: 2px solid; */
+  border-radius: 3px;
+
   margin: 0;
-  margin-top: 5px;
   padding: 0;
+  margin-top: 3px;
   font-size: 16px;
 }
 
@@ -101,9 +104,10 @@ main {
   /* border: 1px dotted red; */
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  margin-top: 30px;
+  margin-top: 40px;
   text-align: left;
   padding: 15px 5px;
+  background-color: azure;
 }
 .single_Placed_Product_DetailsDiv {
   /* border: 1px solid rgb(0, 255, 55); */
@@ -120,4 +124,19 @@ main {
   width: 230px;
   height: 200px;
   object-fit: contain;
+}
+.singleProduct select {
+  margin: 15px 0;
+  text-align: center;
+}
+.singleProduct button {
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: rgb(243, 83, 83);
+  color: white;
+}
+.singleProduct button:hover {
+  transform: scale(0.97);
 }

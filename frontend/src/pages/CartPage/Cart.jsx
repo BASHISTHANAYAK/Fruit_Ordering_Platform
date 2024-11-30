@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import NavWithoutLogin from "../../components/NavBar/navbar";
 import api from "../../Axios_Interceptor/api.js";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ const Cart = () => {
     postalcode: "",
     country: "",
   });
+
   const [orders, setOrders] = useState([]);
   const [showCartORPreviousOrders, setShowCartORPreviousOrders] =
     useState("showCart");
@@ -24,34 +25,39 @@ const Cart = () => {
   const { _id } = useSelector((state) => state);
 
   // Fetch cart products
-  useEffect(() => {
-    async function getCart() {
-      try {
-        let res = await api.get(`/getcartProducts/${_id}`);
-        console.log("getCart-", res.data.cart);
-        setCartData(res.data.cart);
+  async function getCart() {
+    setOrders([])
+    setShowCartORPreviousOrders("showCart")
+    console.log("Fetch cart products...")
+    try {
+      let res = await api.get(`/getcartProducts/${_id}`);
+      // console.log("getCart-", res.data.cart);
+      setCartData(res.data.cart);
 
-        // Calculate total price
-        let total = res.data.cart.reduce(
-          (acc, curr) => acc + curr.product.price * curr.quantity,
-          0
-        );
-        setTotalPrice(total);
-      } catch (error) {
-        console.log(error);
-      }
+      // Calculate total price
+      let total = res.data.cart.reduce(
+        (acc, curr) => acc + curr.product.price * curr.quantity,
+        0
+      );
+      setTotalPrice(total);
+    } catch (error) {
+      console.log(error);
     }
-    getCart();
-  }, [_id]);
+  }
+  useEffect(() => {
 
-  // Handle form input changes
+    getCart();
+  }, []);
+
+  // Handle form/delivery  input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDeliveryDetails({ ...deliveryDetails, [name]: value });
   };
 
-  // Place order
-  async function placeOrder() {
+  // Place order by filling address details
+  async function placeOrder(event) {
+    event.preventDefault();
     if (
       !deliveryDetails.deliveryName ||
       !deliveryDetails.contactInfo ||
@@ -61,7 +67,17 @@ const Cart = () => {
       !deliveryDetails.postalcode ||
       !deliveryDetails.country
     ) {
-      alert("Please fill in all delivery details!");
+      toast.error("Please fill in all delivery details!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      getCart();
       return;
     } else {
       console.log("deliveryDetails-", deliveryDetails);
@@ -78,7 +94,7 @@ const Cart = () => {
         ...deliveryDetails,
       });
 
-      console.log("Order placed successfully:", res.data);
+      // console.log("Order placed successfully:", res.data);
       toast.success("Order placed successfully!", {
         position: "top-right",
         autoClose: 1000,
@@ -116,19 +132,109 @@ const Cart = () => {
     }
   }
 
-  //fetchOrders
+  //fetch placed orders of buyer 
   async function fetchOrders() {
+    setCartData([])
     setShowCartORPreviousOrders(() => "showPlacedOrders");
     try {
       const res = await api.get(`/getOrders/${_id}`);
-      console.log("Fetched Orders:", res.data.orders);
+      // console.log("Fetched Orders:", res.data.orders);
       setOrders(res.data.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
-      alert(error?.response?.data?.message || error.message);
+      toast.error(error?.response?.data?.message || error.message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   }
 
+
+  async function changeQuantity(productId, changeQuantity) {
+    changeQuantity = Number(changeQuantity)
+    let buyerId = _id
+    // console.log("changeQuantity-", { buyerId, productId, changeQuantity })
+    try {
+      let result = await api.post(`/addToCart/${buyerId}`, {
+        productId,
+        quantity: changeQuantity,
+        areYouUpdatingQuantity: true
+      });
+
+      // console.log("changeQuantity result--", result);
+      if (result.status === 200) {
+        getCart();
+
+        toast.success("Quantity updated", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || error.message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  }
+
+  //  "/removeFromCart/:buyerId",
+  async function removeFrom_Cart(objToDeleteId) {
+    let buyerId = _id;
+    // console.log("removeFrom_Cart-", { objToDeleteId, buyerId })
+    try {
+      let result = await api.delete(`/removeFromCart/${buyerId}/${objToDeleteId}`);
+
+      // console.log("removeFrom_Cart result--", result);
+      if (result.status === 200) {
+
+        toast.success("Product removed", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        getCart();
+
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || error.message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+
+  }
   return (
     <div>
       <ToastContainer />
@@ -137,11 +243,10 @@ const Cart = () => {
       <section className={cartCss.heading}>
         <h1>Cart</h1>
         <div>
-          <button onClick={fetchOrders}>
-            {showCartORPreviousOrders === "showCart"
-              ? "Check Orders"
-              : "Go to cart"}
-          </button>
+          {
+            showCartORPreviousOrders === "showCart" ? <button onClick={() => fetchOrders()} >show placed orders</button> : <button onClick={() => getCart()}>Go to cart</button>
+          }
+
         </div>
       </section>
 
@@ -183,7 +288,7 @@ const Cart = () => {
         </section>
       )}
 
-      {/*Products in Cart Now / summary */}
+      {/*cart summary and address details*/}
 
       {showCartORPreviousOrders === "showCart" && (
         <main>
@@ -298,13 +403,23 @@ const Cart = () => {
           <section className={cartCss.allCart_Products_container}>
             {cartData.length > 0 && orders.length === 0
               ? cartData.map((obj) => (
-                  <div key={obj._id} className={cartCss.singleProduct}>
-                    <img src={obj?.product?.image} alt="img" />
-                    <h2>Name: {obj?.product?.name}</h2>
-                    <h2>Price: ₹{obj?.product?.price}</h2>
-                    <h2>Quantity: {obj?.quantity}</h2>
-                  </div>
-                ))
+                <div key={obj._id} className={cartCss.singleProduct}>
+                  <img src={obj?.product?.image} alt="img" />
+                  <h2>Name: {obj?.product?.name}</h2>
+                  <h2>Price: ₹{obj?.product?.price}</h2>
+                  <h2>Quantity: {obj?.quantity}</h2>
+                  <select name="" id="" onChange={(e) => changeQuantity(obj.product._id, e.target.value)}>
+                    <option value="1" disabled >--update quantity--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="4">5</option>
+
+                  </select>
+                  <button onClick={() => removeFrom_Cart(obj._id)}>Remove</button>
+                </div>
+              ))
               : !cartData.length > 0 && <p>Cart is empty.</p>}
           </section>
         </main>

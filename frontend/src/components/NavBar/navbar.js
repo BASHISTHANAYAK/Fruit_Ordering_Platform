@@ -88,6 +88,7 @@ const NavWithoutLogin = () => {
           <i className="fa-duotone fa-light fa-bars"></i>
         ) : (
           <i class="fa-sharp fa-solid fa-xmark" style={{ color: "white" }}></i>
+          
         )}
       </div>
     </>

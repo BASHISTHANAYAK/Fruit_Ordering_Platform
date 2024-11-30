@@ -131,30 +131,30 @@ const buyerLoginRoute = async (req, res) => {
 // add to cart -------------------------------------------------------------
 const addToCart = async (req, res) => {
   const { buyerId } = req.params; // ID of the buyer
-  const { productId, quantity } = req.body; // ID of the product and quantity
+  const { productId, quantity, areYouUpdatingQuantity } = req.body; // ID of the product and quantity
   console.log({ productId, buyerId, quantity });
   try {
     const buyer = await BuyerModel.findById(buyerId);
-
     if (!buyer) {
       return res.status(404).json({ message: "Buyer not found" });
     }
-
     // Check if the product is already in the cart
     const cartItem = buyer.cart.find(
       (item) => item.product.toString() === productId
     );
-
     if (cartItem) {
-      // Update quantity if product exists in the cart
-      cartItem.quantity += quantity;
+      if (!areYouUpdatingQuantity) {
+        // Update quantity if product exists in the cart
+        cartItem.quantity = Number(cartItem.quantity) + Number(quantity);
+      } else {
+        cartItem.quantity = Number(quantity);
+
+      }
     } else {
       // Add new product to the cart
       buyer.cart.push({ product: productId, quantity });
     }
-
     await buyer.save(); // Save changes to the buyer's document
-
     return res
       .status(200)
       .json({ message: "Product added to cart", cart: buyer.cart });
@@ -163,6 +163,8 @@ const addToCart = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+//just
 
 // // Get all products -------------------------------------------------------------
 const getcartProducts = async (req, res) => {
@@ -292,6 +294,43 @@ const fetchOrders = async (req, res) => {
   }
 };
 
+async function removeFromCart(req, res) {
+  const { buyerId, objToDeleteId } = req.params; // ID of the buyer
+  console.log({ buyerId, objToDeleteId });
+  try {
+    const buyer = await BuyerModel.findById(buyerId);
+
+    if (!buyer) {
+      return res.status(404).json({ message: "Buyer not found" });
+    }
+    // Find the index of the product in the cart
+    const cartItemIndex = buyer.cart.findIndex(
+      (item) => item._id.toString() === objToDeleteId
+    );
+
+    if (cartItemIndex === -1) {
+      // If the product is not found in the cart
+      return res.status(404).json({ message: "Product not found in cart" });
+    }
+
+    // Remove the product from the cart
+    buyer.cart.splice(cartItemIndex, 1);
+
+    // Save the updated buyer document
+    await buyer.save();
+
+    return res.status(200).json({ message: "Product removed from cart", cart: buyer.cart });
+
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to delete order", error: error.message });
+  }
+}
+
+
+
 export {
   buyerSignupRoute,
   buyerLoginRoute,
@@ -299,4 +338,5 @@ export {
   getcartProducts,
   placeOrder,
   fetchOrders,
+  removeFromCart
 };

@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/navbar.js";
 import serverUrl from "../../config.js";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 // import Banner from "../../assets/images/homePageBanner.png";
 import homeCss from "./home.module.css";
 import api from "../../Axios_Interceptor/api.js";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../ReduxPersist/actions.js";
+import { useSelector } from "react-redux";
+
 // import { useSelector } from "react-redux";
 
 const Home = () => {
   const [AllData, setAllData] = useState([]);
-
+  const [aSingleProductQuantity, setASingleProductQuantity] = useState(1)
   const reduxData = useSelector((state) => state);
-  const dispatch = useDispatch();
   // const isLoggedIn = reduxData.isLoggedIn;
+  // console.log("home  ,redux->", reduxData);
 
-  console.log("home  ,redux->", reduxData);
-
-  const Navigate = useNavigate();
 
   // ------------------------- get all  products---------------
   useEffect(() => {
     async function getAllProduct() {
       try {
         const res = await api.get(`${serverUrl}/getAllProducts`);
-        console.log("getAllProducts res-", res);
+        // console.log("getAllProducts res-", res);
         setAllData(res.data);
       } catch (error) {
         console.log("getAllProduct error-", error);
@@ -36,16 +32,19 @@ const Home = () => {
     getAllProduct();
   }, []);
 
+  //updateProductQuantity ---------------------------
 
-  //addtocartFun
+  //addtocartFun ----------------------------
   async function addtocartFun(buyerId, productId) {
+
     try {
       let result = await api.post(`/addToCart/${buyerId}`, {
         productId,
-        quantity: 1,
+        quantity: aSingleProductQuantity,
+        areYouUpdatingQuantity: false
       });
 
-      console.log("addtocartFun--", result);
+      // console.log("addtocartFun--", result);
       if (result.status === 200) {
         toast.success(result?.data?.message, {
           position: "top-right",
@@ -71,6 +70,14 @@ const Home = () => {
         theme: "light",
       });
     }
+  }
+
+
+  function addQuantity(e) {
+    let quantity = Number(e.target.value) || 1
+    // console.log("quantity-", quantity)
+    setASingleProductQuantity(quantity)
+
   }
   // =========================================== END ==================================================>
 
@@ -113,6 +120,14 @@ const Home = () => {
                 <p className={homeCss.color_and_type}></p>
                 <p>description: {obj.description}</p>
               </div>
+              <select name="" id="" onChange={addQuantity} className={homeCss.selectQuantity}>
+                <option value="">--Select Qunatity--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="4">5</option>
+              </select>
 
               {reduxData.isLoggedIn && reduxData.role === "Buyer" && (
                 <section
@@ -130,9 +145,9 @@ const Home = () => {
       ) : (
         <center className={homeCss.loadingImg}>
           <img
-            src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
-            alt="loader"
-          />{" "}
+            src="https://cdn.pixabay.com/animation/2024/10/22/07/53/07-53-23-877_512.gif"
+            alt="loader gif.."
+          />
         </center>
       )}
     </>

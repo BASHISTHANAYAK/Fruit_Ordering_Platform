@@ -1,6 +1,10 @@
 .welcome {
   /* border: 2px solid; */
-  padding-top: 5%;
+  padding-top: 20px;
+  margin-top: 40px;
+  display: inline-block;
+  text-decoration: underline;
+  margin-left: 2%;
 }
 
 .productsDIV {
@@ -34,9 +38,10 @@
 .orderCard {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
+  padding: 16px ;
   margin-bottom: 16px;
-  background-color: #f9f9f9;
+  background-color: #294108;
+  color: white;
 }
 
 .orderCard h3 {

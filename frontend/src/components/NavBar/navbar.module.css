@@ -37,6 +37,7 @@ body {
 }
 /* openNav */
 .openNavBtn {
+  /* border: 2px solid red; */
   display: none;
   position: absolute;
   top: 0;
@@ -44,12 +45,18 @@ body {
   z-index: 200;
   /* border: none; */
   /* background-color: beige; */
-  border-radius: 5px;
+  /* border-radius: 5px; */
   padding: 3px;
   cursor: pointer;
+  height: 40px;
+  width: 100%;
+  background-color: #2d0051;
 }
 .openNavBtn > i {
+  display: block;
   font-size: 25px;
+  color: white;
+  margin: 1% 0 1% 2%;
 }
 
 @media screen and (max-width: 620px) {
