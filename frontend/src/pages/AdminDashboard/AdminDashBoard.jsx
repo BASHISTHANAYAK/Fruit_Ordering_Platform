@@ -88,7 +88,7 @@ const AdminDashBoard = () => {
     <>
       <ToastContainer />
       <NavBar />
-      <h1>Hi {adminDetails.name}, Welcome</h1>
+      <h1 className={adminDashCss.welcome}>Hi {adminDetails.name}, Welcome</h1>
       <section className={adminDashCss.buttons_Sec}>
         <button onClick={fetchProducts}>Get your products</button>
         <button onClick={() => navigate("/createProduct")}>

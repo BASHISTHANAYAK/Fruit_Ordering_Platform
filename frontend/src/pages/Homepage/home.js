@@ -36,14 +36,6 @@ const Home = () => {
     getAllProduct();
   }, []);
 
-  //log_to_addIn_cart
-  function log_to_addIn_cart() {
-    dispatch(logoutUser());
-
-    setTimeout(() => {
-      Navigate("/selectAccountType");
-    }, 500);
-  }
 
   //addtocartFun
   async function addtocartFun(buyerId, productId) {
@@ -138,7 +130,7 @@ const Home = () => {
       ) : (
         <center className={homeCss.loadingImg}>
           <img
-            src="https://www.pcb.com/contentstore/images/pcb_corporate/supportingimages/loader.gif"
+            src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
             alt="loader"
           />{" "}
         </center>
