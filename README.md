@@ -10,6 +10,12 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 - Live URL: [https://fruit-ordering-platform-xjbc.vercel.app/](https://fruit-ordering-platform-xjbc.vercel.app/)
 
+## Home Page
+
+![home after login](/frontend/public/redmeImages/buyerHomePage_AfterLogin.png)
+
+&nbsp;
+
 ### Mock Credentials for Testing
 
 - **Admin**
