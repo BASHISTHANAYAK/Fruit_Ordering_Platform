@@ -134,8 +134,7 @@ const getAllPlacedOrdersByAdmin = async (req, res) => {
 
   console.log("adminId-", adminId);
   try {
-    const { adminId } = req.params; // Assuming `req.user` contains the logged-in admin's details after authentication
-    // Find all products created by the logged-in admin
+    const { adminId } = req.params; 
     const adminProducts = await ProductModel.find({ admin: adminId }).select(
       "_id"
     );

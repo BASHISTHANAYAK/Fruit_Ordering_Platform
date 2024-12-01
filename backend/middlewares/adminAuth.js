@@ -13,7 +13,6 @@ const adminAuth = async (req, res, next) => {
     // Split the Authorization header to get the token
     const tokenArray = authHeader.split(" ");
     const jwttoken = tokenArray[1]; // The token is at index 1 after splitting
-    console.log("jwttoken from adminAuth-: ");
     // Remove double quotes if present
     const cleanedToken = jwttoken.replace(/^"(.*)"$/, "$1");
 
