@@ -1,5 +1,6 @@
 import { AdminModel } from "../model/AdminSchema.js";
 import { ProductModel } from "../model/ProductSchema.js";
+import mongoose from "mongoose";
 
 // Create a new product
 export const createProduct = async (req, res) => {
@@ -42,10 +43,15 @@ export const createProduct = async (req, res) => {
 // // Get all products
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await ProductModel.find().populate("admin", "name email");
+    // Check if database is connected
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({ error: "Database not connected" });
+    }
 
+    const products = await ProductModel.find().populate("admin", "name email");
     res.status(200).json(products);
   } catch (error) {
+    console.error("Error fetching products:", error);
     res.status(500).json({ error: error.message });
   }
 };

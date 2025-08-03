@@ -2,15 +2,27 @@ import express from "express";
 import dotenv from "dotenv";
 import router from "./Routes/Routes.js";
 import cors from "cors";
-import "./db_connection/mongoo.js";
+import { connectDB } from "./db_connection/mongoo.js";
 
 const app = express();
 app.use(cors({ origin: "*" }));
 dotenv.config();
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-app.use(router);
+app.use(express.urlencoded({extended:true}));
 
-const PORT = process.env.PORT || 7000;
+// Connect to database before starting server
+const startServer = async () => {
+  try {
+    await connectDB();
+    
+    app.use(router);
+    
+    const PORT = process.env.PORT || 7000;
+    app.listen(PORT, () => console.log(`App running on port ${PORT}!`));
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
 
-app.listen(PORT, () => console.log(` app running on port ${PORT}!`));
+startServer();
