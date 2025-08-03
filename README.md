@@ -20,13 +20,13 @@ This is a full-stack web application built with the MERN stack (MongoDB, Express
 
 - **Admin**
 
-  - Email: `bashisthanayak09@gmail.com`
-  - Password: `bashisthanayak09@B`
+  - Email: `admin1@gmail.com`
+  - Password: `admin1@A`
 - **Note**:"Password must be at least 8 characters long and have at least one uppercase and one lowercase letter
 
 - **User/Buyer**
-  - Email: `moresivam49@gmail.com`
-  - Password: `moresivam49@M`
+  - Email: `user11@gmail.com`
+  - Password: `user11@U`
   - **Note**:"Password must be at least 8 characters long and have at least one uppercase and one lowercase letter
   - **Note**: You will receive email notifications about the status of your order at the email address you provided during registration.
 
