@@ -41,7 +41,7 @@ const router = express.Router();
 
 // --------------------------------------
 //TestingROute
-router.get("/", TestingROute);
+router.get("/health", TestingROute);
 
 //getAllProducts
 router.get("/getAllProducts", getAllProducts);

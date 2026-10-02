@@ -9,6 +9,7 @@ import userReducer from "./reducer";
 const persistConfig = {
   key: "root",
   storage, // Use localStorage
+  whitelist: ["isLoggedIn", "isLoggedOut", "name", "role", "_id"], // Only persist session; keep catalog and products in-memory
 };
 
 const persistedReducer = persistReducer(persistConfig, userReducer);

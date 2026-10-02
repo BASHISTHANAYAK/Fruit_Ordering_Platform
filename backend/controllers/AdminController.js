@@ -139,7 +139,7 @@ const getAllPlacedOrdersByAdmin = async (req, res) => {
       "_id"
     );
 
-    const adminProductIds = adminProducts.map((product) => product._id);
+    const adminProductIds =  adminProducts.map((product) => product._id);
 
     // Fetch orders that contain these products
     const orders = await OrderModel.find({
@@ -153,7 +153,7 @@ const getAllPlacedOrdersByAdmin = async (req, res) => {
       });
 
     if (!orders || orders.length === 0) {
-      return res.status(404).json({ message: "No products found ." });
+      return res.status(404).json({ message: "No orders found ." });
     }
 
     res.status(200).json({

@@ -5,8 +5,6 @@ dotenv.config();
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGOODB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 30000, // 30 seconds timeout
       socketTimeoutMS: 45000, // 45 seconds socket timeout
       bufferCommands: false, // Disable mongoose buffering
