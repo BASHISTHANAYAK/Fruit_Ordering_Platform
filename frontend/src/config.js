@@ -1,6 +1,7 @@
-const serverUrl = "http://localhost:5000";
+const serverUrl = "https://fruit-ordering-platform-backend.onrender.com";
 
-// "https://fruit-ordering-platform-backend.onrender.com";
+// "http://localhost:5000";
+
 //"http://localhost:3000";
 
 
